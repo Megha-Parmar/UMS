@@ -1,0 +1,18 @@
+<!-- <p>sidebar works!</p>
+ -->
+<mat-list role="list">
+    <!-- <mat-list-item role="listitem"><a href="create">Create</a></mat-list-item>
+    <mat-list-item role="listitem"><a href="./../../pages/base/user/user.module.ts">List</a></mat-list-item>
+    <mat-list-item role="listitem">Item 3</mat-list-item> -->
+    <mat-list-item role="listitem"><a class="sidebar-link" [routerLink]="['/user']">
+            <span class="sidebar-link-icon">
+                <mat-icon>supervisor_account</mat-icon>
+
+            </span>
+            <span class="sidebar-link-text">
+
+                User Management
+            </span>
+        </a>
+    </mat-list-item>
+</mat-list>

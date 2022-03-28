@@ -1,0 +1,25 @@
+<mat-grid-list class="mat-grid-list-section" cols="3" rowHeight="1:1">
+    <mat-grid-tile class="mat-grid-col-left  height-left" [colspan]="1" [rowspan]="1">
+        <div class="top">
+            <img src="assets/user-manage-logo.png" class="menu-user-icon">
+            <!-- <span>User Management System</span> -->
+            <h3> User Management System</h3>
+        </div>
+        <div class="middle">
+            <!-- <img src="assets/user-manage-logo.png" class="menu-user-icon">
+            <span>User Management System</span> -->
+            <h1>Welcome To User Management System</h1>
+        </div>
+        <div class="bottom">
+            <p> © {{today|date:'yyyy'}} User Mangement System</p>
+            <!-- <img src="assets/user-manage-logo.png" class="menu-user-icon">
+            <span>User Management System</span> -->
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1" class=" height-left">
+        <div class="container-main">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
