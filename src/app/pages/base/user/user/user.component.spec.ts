@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DD_MM_YYYY_Format } from 'src/app/_modal/date.model';
@@ -33,7 +34,7 @@ describe('UserComponent', () => {
         MatCardModule,
         MatTableModule,
         MatInputModule,
-        MatFormFieldModule, MatTableModule,
+        MatFormFieldModule, 
         MatIconModule,
         MatPaginatorModule,
         MatSortModule,
@@ -41,14 +42,14 @@ describe('UserComponent', () => {
         MatDatepickerModule,
         ReactiveFormsModule,
         FormsModule,
-        MatDialogModule,
-        MatDatepickerModule,
+        NoopAnimationsModule,
         // MatMomentDateModule,
         NgbModule,
         MatSnackBarModule,
         MatNativeDateModule,
         MatProgressSpinnerModule,
-        MatTooltipModule,],
+        MatTooltipModule,
+        ],
       providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
       { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format },
       { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
@@ -63,6 +64,7 @@ describe('UserComponent', () => {
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

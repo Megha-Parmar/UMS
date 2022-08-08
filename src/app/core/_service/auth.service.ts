@@ -43,8 +43,18 @@ export class AuthService {
 
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.get<any>(`/api/auth/user?email=${data.email}&password=${data.password}`);
+
+    // return this.http.get<any>(`https://jsonplaceholder.typicode.com/posts`);
+
+    
+    // return this.http.get<any>(`http://localhost:3000/api/auth/user?email=${data.email}&password=${data.password}`); // AT THE TIME  OF `ng test`
+
   }
   logout() {
     localStorage.clear();
+  }
+
+  ngOnDestroy() {
+    console.log('Service destroy')
   }
 }
