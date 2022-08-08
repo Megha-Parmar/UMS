@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -12,32 +12,35 @@ import { UserService } from 'src/app/core/_service/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  userData = {
-    email: '',
-    password: ''
+  public userData = {
+    email: '',//'1997meghal@gmail.com',
+    password: '',//'Test@123'
   };
   hide = true;
-  constructor(private authService: AuthService, private _snackBar: MatSnackBar, private userService: UserService, private router: Router) { }
+  @ViewChild('loginForm') sampleForm: NgForm;
+  response: any;
+  constructor(public authService: AuthService, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
     console.info('lifecycle hooks ngOnInit called');
 
   }
 
-  submitLogin(form: NgForm) {
+  // submitLogin(form: NgForm) {
+  submitLogin() {
 
-    if (form.form.valid) {
+    
+    if (this.sampleForm.valid) {
 
       // this.userService.encryptString(form.form.value.password).then((value) => {
-
       const payload = {
-        email: form.form.value.email,
-        password: form.form.value.password
+        email: this.sampleForm.form.value.email,
+        password: this.sampleForm.form.value.password
       }
       // payload['password'] = value
       payload['password'] = this.userService.encryptUsingAES256(payload['password'])
-
       this.authService.login(payload).subscribe(response => {
 
+        this.response=response
         if (response.success) {
 
 
@@ -64,7 +67,7 @@ export class LoginComponent implements OnInit {
       })
 
     } else {
-      form.form.markAllAsTouched();
+      this.sampleForm.form.markAllAsTouched();
     }
 
   }
