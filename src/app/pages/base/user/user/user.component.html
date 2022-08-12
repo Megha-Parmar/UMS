@@ -139,14 +139,14 @@
         </button>
     </div>
     <div class="modal-body">
-        <form class="example-form" [formGroup]="userForm">
+        <form class="example-form" name="userForm" id="userForm" [formGroup]="userForm">
 
             <div class="row">
                 <div class="col">
                     <div class="form-group">
                         <label>First Name</label>
                         <div class="input-group mb-1">
-                            <input type="text" class="form-control" autocomplete="off" formControlName="firstName"
+                            <input type="text" class="form-control" autocomplete="off" formControlName="firstName" id="firstName"
                                 name="firstName" placeholder="First Name">
                         </div>
                         <mat-error *ngIf="userForm.get('firstName')?.errors && userForm.get('firstName')?.touched">
@@ -164,7 +164,7 @@
                     <div class="form-group">
                         <label>Last Name</label>
                         <div class="input-group mb-1">
-                            <input type="text" class="form-control" autocomplete="off" formControlName="lastName"
+                            <input type="text" class="form-control" autocomplete="off" formControlName="lastName" id="lastName"
                                 name="lastName" placeholder="Last Name">
                         </div>
                         <mat-error *ngIf="userForm.get('lastName')?.errors && userForm.get('lastName')?.touched">
@@ -182,7 +182,7 @@
             <div class="form-group">
                 <label>Email</label>
                 <div class="input-group mb-1">
-                    <input type="text" class="form-control" autocomplete="off" formControlName="email" name="email"
+                    <input type="text" class="form-control" autocomplete="off" formControlName="email" name="email" id="email"
                         placeholder="Email">
                 </div>
                 <mat-error *ngIf="userForm.get('email')?.errors && userForm.get('email')?.touched">
@@ -207,7 +207,7 @@
                         <label>User Name</label>
                         <div class="input-group mb-1">
 
-                            <input type="text" class="form-control" autocomplete="off"
+                            <input type="text" class="form-control" autocomplete="off" id="username"
                                 [readonly]="loggedInUser?.role?.name==='USER'" formControlName="username"
                                 name="username" placeholder="User Name">
                         </div>
@@ -229,7 +229,7 @@
                         <div class="form-group">
                             <label>Phone Number</label>
                             <div class="input-group mb-1">
-                                <input type="text" class="form-control" autocomplete="off" formControlName="phoneNumber"
+                                <input type="text" class="form-control" autocomplete="off" formControlName="phoneNumber" id="phoneNumber"
                                     prefix="+91 " name="phoneNumber" mask="0000000000" placeholder="+91 999999999">
                             </div>
                             <mat-error class="help-block"
@@ -247,10 +247,10 @@
             <div class="form-group">
                 <label>Role</label>
                 <div class="input-group mb-1">
-                    <select class="form-control" name="role" autocomplete="off" formControlName="role">
+                    <select class="form-control" name="role" autocomplete="off" formControlName="role" id="role">
                         <option value="null" disabled>Please select role.
                         </option>
-                        <option *ngFor="let role of roleList" [value]="role.id"> {{ role.value }} </option>
+                        <option *ngFor="let role of roleList" [value]="role.id" id="role_{{role.id}}"> {{ role.value }} </option>
                     </select>
                 </div>
                 <mat-error *ngIf="userForm.get('role')?.errors && userForm.get('role')?.touched">
@@ -266,7 +266,7 @@
                 <label>DOB</label>
                 <div class="input-group mb-1 ">
                     <mat-form-field class="date-input">
-                        <input matInput [matDatepicker]="picker" formControlName="dob" readonly placeholder="DOB">
+                        <input matInput [matDatepicker]="picker" formControlName="dob" readonly placeholder="DOB"  id="dob">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <!-- [min]="currentDate" -->

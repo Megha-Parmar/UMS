@@ -3,11 +3,11 @@
         <h1>Login</h1>
     </div>
     <div>
-        <form #loginForm="ngForm" name="loginForm">
+        <form #loginForm="ngForm">
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your email</mat-label>
-                    <input matInput placeholder="pat@example.com" autocomplete="none" class="form-control"
+                    <input matInput placeholder="pat@example.com" autocomplete="none" id="email" class="form-control"
                         [(ngModel)]="userData.email" name="email" required email #email="ngModel">
                     <mat-error *ngIf="email?.errors?.required">Email id is required</mat-error>
                 </mat-form-field>
@@ -15,12 +15,12 @@
             <div class="form-group">
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" autocomplete="none"
+                    <input matInput [type]="hide ? 'password' : 'text'" id="password" autocomplete="none"
                         [(ngModel)]="userData.password" name="password" required password #password="ngModel">
-                    <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </a>
+                    </button>
                     <mat-error *ngIf="password?.errors?.required">Password is required</mat-error>
                 </mat-form-field>
             </div>
