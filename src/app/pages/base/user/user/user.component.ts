@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   public totalData = 0;
   public loadingSubject = new BehaviorSubject<boolean>(true);
   public isInEditMode: boolean = false;
-  public userForm!: FormGroup;
+  public userForm!: UntypedFormGroup;
   public pageIndex: number = 0;
   public formTitle = "";
   public pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -55,7 +55,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService, public dialogRef: MatDialogRef<any>,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     private modalService: NgbModal,
     private _snackBar: MatSnackBar,
