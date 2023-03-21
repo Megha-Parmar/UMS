@@ -4,15 +4,18 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule, Routes } from '@angular/router';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+
 import { AuthService } from 'src/app/core/_service/auth.service';
 import { AuthGuard } from 'src/app/core/auth/_guard/auth.guard';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 const routes: Routes = [
   {
     path: '',

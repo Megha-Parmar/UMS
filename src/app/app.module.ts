@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LayoutModule } from './core/layout/layout.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
