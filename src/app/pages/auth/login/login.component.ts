@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         password: this.sampleForm.form.value.password
       }
       // payload['password'] = value
-      payload['password'] = this.userService.encryptUsingAES256(payload['password'])
+      // payload['password'] = this.userService.encryptUsingAES256(payload['password'])
       this.authService.login(payload).subscribe(response => {
 
         this.response=response
@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
 
 
 
-          if (response.body && response.body.length > 0) {
-            this.authService.saveUserDetail(response.body[0]);
+          if (response?.user ) {
+            this.authService.saveUserDetail(response);
+            
             this.router.navigate(['user']);
             this._snackBar.open('Login successfully.', 'close', {
               duration: 3000,
@@ -65,6 +66,10 @@ export class LoginComponent implements OnInit {
         }
 
         // });
+      },err=>{
+        this._snackBar.open(err.error.message, 'close', {
+          duration: 3000,
+        });
       })
 
     } else {

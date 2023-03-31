@@ -11,9 +11,16 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   saveUserDetail(user: any) {
-    localStorage.setItem('userName', user.username)
 
+    if(!localStorage.user){
+    localStorage.setItem('userName', user.userName)
+
+    localStorage.setItem('user', JSON.stringify(user.user))
+    localStorage.setItem('token', user.token)
+  }else{
     localStorage.setItem('user', JSON.stringify(user))
+  }
+
   }
 
   getUserDetail() {
@@ -26,9 +33,18 @@ export class AuthService {
     return null;
   }
 
+  getLocalStrorageDetail(key:string) {
+    if (localStorage.getItem(key)) {
+      
+      return localStorage.getItem(key);
+
+    }
+    return null;
+  }
+
 
   saveUserName(user: User) {
-    localStorage.setItem('userName', user.username)
+    localStorage.setItem('userName', user.userName)
 
 
   }
@@ -42,7 +58,7 @@ export class AuthService {
 
 
   login(data: { email: string; password: string }): Observable<any> {
-    return this.http.get<any>(`/api/auth/user?email=${data.email}&password=${data.password}`);
+    return this.http.post<any>(`/api/auth/login`,data);
 
     // return this.http.get<any>(`https://jsonplaceholder.typicode.com/posts`);
 

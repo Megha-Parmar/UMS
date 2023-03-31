@@ -12,7 +12,7 @@ describe('AuthService', () => {
       {
         "firstName": "megha",
         "lastName": "Parmar",
-        "username": "megha.parmar",
+        "userName": "megha.parmar",
         "email": "1997meghal@gmail.com",
         "phoneNumber": "4546576",
         "role": {

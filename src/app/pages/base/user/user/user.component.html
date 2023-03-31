@@ -36,6 +36,7 @@
                 </div>
             </div>
           </mat-card-header>
+          
         <mat-card-content>
             <div class="body">
                 <div class="mat-table__wrapper">
@@ -51,35 +52,35 @@
                         <ng-container matColumnDef="uniqueId">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>
                                 User ID</mat-header-cell>
-                            <mat-cell *matCellDef="let user"><b>{{ user.uniqueId }}</b> </mat-cell>
+                            <mat-cell *matCellDef="let user"><b>{{ user?.uniqueId }}</b> </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="name">
                             <mat-header-cell *matHeaderCellDef>Name
                             </mat-header-cell>
-                            <mat-cell *matCellDef="let user">{{ user.firstName + ' ' + user.lastName }}</mat-cell>
+                            <mat-cell *matCellDef="let user">{{ user?.firstName + ' ' + user?.lastName }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="role">
                             <mat-header-cell *matHeaderCellDef>Role
                             </mat-header-cell>
-                            <mat-cell *matCellDef="let user">{{ user.role.value}}</mat-cell>
+                            <mat-cell *matCellDef="let user">{{ user?.role?.value}}</mat-cell>
 
                         </ng-container>
 
                         <ng-container matColumnDef="phoneNumber">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
-                            <mat-cell *matCellDef="let user">{{ user.phoneNumber }}</mat-cell>
+                            <mat-cell *matCellDef="let user">{{ user?.phoneNumber }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="email">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-                            <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+                            <mat-cell *matCellDef="let user">{{ user?.email }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="dob">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>DOB</mat-header-cell>
-                            <mat-cell *matCellDef="let user">{{ user.dob |date:'dd/MM/yyyy' }}</mat-cell>
+                            <mat-cell *matCellDef="let user">{{ user?.dob |date:'dd/MM/yyyy' }}</mat-cell>
                         </ng-container>
 
 
@@ -87,9 +88,9 @@
                             <mat-header-cell *matHeaderCellDef>Status
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user">
-                                <span *ngIf="user.status === 'ACTIVE'"
+                                <span *ngIf="user?.status === 'ACTIVE'"
                                     class="kt-badge kt-badge--inline kt-badge--pill kt-badge--success kt-badge--wide">Active</span>
-                                <span *ngIf="user.status === 'DEACTIVE'"
+                                <span *ngIf="user?.status === 'DEACTIVE'"
                                     class="kt-badge kt-badge--inline kt-badge--pill kt-badge-- kt-badge--wide">Inactive</span>
                             </mat-cell>
                         </ng-container>
@@ -110,7 +111,7 @@
                                 </button>
                                 <mat-menu #menu="matMenu">
 
-                                    <button mat-menu-item (click)="editDetails(user.id, UserModel)">
+                                    <button mat-menu-item (click)="editDetails(user?._id, UserModel)">
                                         <mat-icon class="edit_icon">create</mat-icon>
                                         <span>Edit Info</span>
                                     </button>
@@ -238,16 +239,16 @@
                         <div class="input-group mb-1">
 
                             <input type="text" class="form-control" autocomplete="off"
-                                [readonly]="loggedInUser?.role?.name==='USER'" formControlName="username"
-                                name="username" placeholder="User Name">
+                                [readonly]="loggedInUser?.role?.name==='USER'" formControlName="userName"
+                                name="userName" placeholder="User Name">
                         </div>
-                        <mat-error *ngIf="userForm.get('username')?.errors && userForm.get('username')?.touched">
+                        <mat-error *ngIf="userForm.get('userName')?.errors && userForm.get('userName')?.touched">
 
-                            <span *ngIf="userForm.get('username')?.errors?.required">
+                            <span *ngIf="userForm.get('userName')?.errors?.required">
                                 User name is required.
                             </span>
 
-                            <span *ngIf="userForm.get('username')?.errors?.userIdExist">
+                            <span *ngIf="userForm.get('userName')?.errors?.userIdExist">
                                 Username already exist.
                             </span>
                         </mat-error>
@@ -280,9 +281,10 @@
                     <select class="form-control" name="role" autocomplete="off" formControlName="role">
                         <option value="null" disabled>Please select role.
                         </option>
-                        <option *ngFor="let role of roleList" [value]="role.id"> {{ role.value }} </option>
+                        <option *ngFor="let role of roleList" [value]="role._id"> {{ role.value }} </option>
                     </select>
                 </div>
+
                 <mat-error *ngIf="userForm.get('role')?.errors && userForm.get('role')?.touched">
 
                     <span *ngIf="userForm.get('role')?.errors?.required">

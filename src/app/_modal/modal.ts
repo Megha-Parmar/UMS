@@ -1,7 +1,7 @@
 
 export interface User {
-    id: number,
-    username: string,
+    _id: number,
+    userName: string,
     firstName: string,
     lastName: string,
     uniqueId: string,
@@ -14,7 +14,7 @@ export interface User {
 
 
 export interface Role {
-    id: number;
+    _id: number;
     name: string;
     value: string
 }

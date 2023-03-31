@@ -19,11 +19,19 @@ export class UserService {
     let url = '';
     this.loggedInUser = this.authService.getUserDetail();
     if (this.loggedInUser?.role?.name == 'USER') {
-      url = `/api/user/${this.loggedInUser.id}`
-    } else { url = `/api/user?_page=${data.page}&_limit=${data.limit}` }
+      url = `/api/user/${this.loggedInUser._id}`
+    } else { url = `/api/user?page=${data.page}&limit=${data.limit}` }
     return this.http.get(url);
 
   }
+
+
+  getRoles(): Observable<any> {
+    let url = `/api/role` 
+    return this.http.get(url);
+
+  }
+
 
   SaveUserData(data: User): Observable<any> {
     const httpHeaders = new HttpHeaders();
@@ -36,7 +44,7 @@ export class UserService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     // return this.http.post<Role>(API_ROLES_URL, role, { headers: httpHeaders});
-    return this.http.put<any>(`/api/user/${id}`, data, { headers: httpHeaders });
+    return this.http.patch<any>(`/api/user/${id}`, data, { headers: httpHeaders });
   }
 
   DeleteUserData(id: number): Observable<any> {

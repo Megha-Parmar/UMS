@@ -3,6 +3,10 @@
         "target": "http://localhost:3000",
         "headers": {
             "Connection": "keep-alive"
-        }
+        },
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {"^/api" : "http://localhost:3000"}
     }
 }

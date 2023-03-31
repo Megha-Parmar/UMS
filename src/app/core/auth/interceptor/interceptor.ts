@@ -14,11 +14,12 @@ export class Interceptor implements HttpInterceptor {
 
 
         if (user) {
-            const userName = user.username
+            const userName = user.userName
 
             request = request.clone({
                 setHeaders: {
-                    UserName: `${userName}`
+                    UserName: `${userName}`,
+                    Authorization: 'Bearer '+this.authService.getLocalStrorageDetail('token')
                 }
             });
 

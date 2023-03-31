@@ -43,10 +43,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     "action",
   ];
   public loggedInUser: User;
-  public roleList: Role[] = [
-    { id: 1, name: "USER", value: "User" },
-    { id: 2, name: "ADMIN", value: "Admin" }
-  ];
+  public roleList : any[];
 
 
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([])
@@ -64,15 +61,25 @@ export class UserComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // this.getUserData();
     this.loggedInUser = this.authService.getUserDetail();
-    this.activatedRoute.data.subscribe((response: any) => {
 
+
+
+    this.userService.getRoles().subscribe((res)=>{
+      this.roleList = res.roleData;
+    })
+
+
+
+    
+    this.activatedRoute.data.subscribe((response: any) => {
+      
       this.loadingSubject = new BehaviorSubject<boolean>(false);
       if (response.users.success) {
         // console.log("userdata", userData)
 
 
         if (this.loggedInUser.role.name === 'ADMIN') {
-          this.users = response.users.body;
+          this.users = response.users.users;
           this.totalData = response.users.totalData
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
@@ -80,7 +87,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         } else {
 
 
-          this.users = new Array(response.users.body);
+          this.users = new Array(response.users.user);
 
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
@@ -129,7 +136,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
       if (dialogResult) {
-        this.userService.DeleteUserData(user.id).subscribe(response => {
+        this.userService.DeleteUserData(user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
@@ -166,7 +173,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.formTitle = "Update User";
     this.userForm.reset();
     this.isInEditMode = true;
-    this.user = this.users.find((x: { id: any; }) => x.id == userId);
+    this.user = this.users.find((x: { _id: any; }) => x._id == userId);
     this.setValue();
     this.modalService.open(content);
   }
@@ -177,20 +184,20 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.userForm.patchValue({ status: 'ACTIVE', uniqueId: "U_" + (Math.random() + 1).toString(36).substring(7) })
 
       let obj = this.userForm.value;
-      obj['role'] = this.roleList.find((x) => x.id == this.userForm.value.role);
+      // obj['role'] = this.roleList.find((x) => x._id == this.userForm.value.role);
 
 
       if (this.isInEditMode) {
 
-        this.userService.UpdateUserData(obj, this.user.id).subscribe(response => {
+        this.userService.UpdateUserData(obj, this.user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
           if (response.success) {
 
-            this.user = response.body;
+            this.user = response.user;
             this.modalService.dismissAll();
-            if (this.loggedInUser.id == this.user.id) {
+            if (this.loggedInUser._id == this.user._id) {
               this.authService.saveUserDetail(this.user);
               this.loggedInUser = this.user;
 
@@ -199,23 +206,29 @@ export class UserComponent implements OnInit, AfterViewInit {
               duration: 3000,
             });
             // setTimeout(() => {
-            this.getUserData();
-            // }, 1000)
-
-
+              if(response.user.role.name === 'ADMIN'){
+              this.getUserData();
+              } else {
+                if(this.loggedInUser._id === response.users._id){
+                  this.users = new Array(response.user);
+                  this.dataSource = new MatTableDataSource(this.users);
+                }
+              }
           }
 
         })
       } else {
 
-        obj['password'] = this.userService.encryptUsingAES256("Test@123");
+        // obj['password'] = this.userService.encryptUsingAES256("Test@123");
+        obj['password'] = "Test@123";
+
         this.userService.SaveUserData(obj).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
           if (response.success) {
             // console.log("userdata", userData)
-            this.user = response.body;
+            this.user = response.users;
             this.getUserData()
             this.modalService.dismissAll();
             this._snackBar.open('User added successfully', 'close', {
@@ -238,19 +251,19 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
   setValue() {
     this.userForm.setValue({
-      // id: this.user.id,
+      // id: this.user._id,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
-      username: this.user.username,
+      userName: this.user.userName,
       email: this.user.email,
       phoneNumber: this.user.phoneNumber,
-      role: this.user.role.id,
+      role: this.user.role._id,
       status: this.user.status,
       uniqueId: this.user.uniqueId,
       dob: new Date(this.user.dob),
       // dateOfBirth: this.cService.getFormattedDate(this.users.dateOfBirth)
     });
-    // this.userForm.get('id').setValue(this.users.id);
+    // this.userForm.get('id').setValue(this.users._id);
   }
 
 
@@ -259,7 +272,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       // id: [""],
       firstName: ["", [Validators.required, Validators.pattern("^[a-zA-Z]{1,200}$")]],
       lastName: ["", [Validators.required, Validators.pattern("^[a-zA-Z]{1,200}$")]],
-      username: ["", [Validators.required], this.validateUserIdNotTaken.bind(this)],
+      userName: ["", [Validators.required], this.validateUserIdNotTaken.bind(this)],
       email: ["",
         [Validators.required,
         Validators.email,
@@ -288,7 +301,7 @@ export class UserComponent implements OnInit, AfterViewInit {
           return resolve({ 'emailExist': true })
         }
         else {
-          if ((this.loggedInUser.id == isFound.id && this.loggedInUser.email == isFound.email) || this.user.id == isFound.id) {
+          if ((this.loggedInUser._id == isFound._id && this.loggedInUser.email == isFound.email) || this.user._id == isFound._id) {
             return resolve(null);
           }
           else {
@@ -303,7 +316,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   validateUserIdNotTaken(control: AbstractControl): Promise<ValidationErrors | null> {
     return new Promise((resolve, reject) => {
 
-      let isFound = this.users.find((x: any) => x.username == control.value);
+      let isFound = this.users.find((x: any) => x.userName == control.value);
 
       // if (isFound)
       //   return resolve({ 'userIdExist': true })
@@ -313,7 +326,7 @@ export class UserComponent implements OnInit, AfterViewInit {
           return resolve({ 'userIdExist': true })
         }
         else {
-          if ((this.loggedInUser.id == isFound.id) || this.user.id == isFound.id) {
+          if ((this.loggedInUser._id == isFound._id) || this.user._id == isFound._id) {
             return resolve(null);
           }
           else {
@@ -341,13 +354,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       if (response.success) {
 
-        if (response.body && response.body.length > 0) {
-          this.users = response.body;
+        if (response.users && response.users.length > 0) {
+          this.users = response.users;
           this.dataSource = new MatTableDataSource(this.users);
           this.totalData = response.totalData
         } else {
-          this.users = new Array(response.body);
+          if(this.loggedInUser._id === response.users._id){
+          this.users = new Array(response.users);
           this.dataSource = new MatTableDataSource(this.users);
+        }
         }
 
         this.dataSource.sort = this.sort;
