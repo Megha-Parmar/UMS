@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
 
 
 
-          if (response?.user ) {
-            this.authService.saveUserDetail(response);
+          if (response?.body.user ) {
+            this.authService.saveUserDetail(response.body);
             
             this.router.navigate(['user']);
             this._snackBar.open('Login successfully.', 'close', {

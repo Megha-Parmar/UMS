@@ -79,15 +79,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
         if (this.loggedInUser.role.name === 'ADMIN') {
-          this.users = response.users.users;
-          this.totalData = response.users.totalData
+          this.users =  response.users.body.users;
+          this.totalData =  response.users.body.totalData
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
 
         } else {
 
 
-          this.users = new Array(response.users.user);
+          this.users = new Array( response.users.body.user);
 
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
@@ -195,7 +195,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           if (response.success) {
 
-            this.user = response.user;
+            this.user = response.body;
             this.modalService.dismissAll();
             if (this.loggedInUser._id == this.user._id) {
               this.authService.saveUserDetail(this.user);
@@ -206,16 +206,23 @@ export class UserComponent implements OnInit, AfterViewInit {
               duration: 3000,
             });
             // setTimeout(() => {
-              if(response.user.role.name === 'ADMIN'){
               this.getUserData();
-              } else {
-                if(this.loggedInUser._id === response.users._id){
-                  this.users = new Array(response.user);
-                  this.dataSource = new MatTableDataSource(this.users);
-                }
-              }
+
+              // if(response.user.role.name === 'ADMIN'){
+              // this.getUserData();
+              // } else {
+              //   if(this.loggedInUser._id === response.users._id){
+              //     this.users = new Array(response.user);
+              //     this.dataSource = new MatTableDataSource(this.users);
+              //   }
+              // }
           }
 
+        },(err)=>{
+          // console.log(err)
+          this._snackBar.open(err.error.message, 'close', {
+            duration: 3000,
+          });
         })
       } else {
 
@@ -228,7 +235,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           if (response.success) {
             // console.log("userdata", userData)
-            this.user = response.users;
+            this.user =  response.body;
             this.getUserData()
             this.modalService.dismissAll();
             this._snackBar.open('User added successfully', 'close', {
@@ -237,6 +244,12 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           }
 
+        },(err)=>{
+          this._snackBar.open(err.error.message, 'close', {
+            duration: 3000,
+          });
+
+          // console.log(err)
         })
 
 
@@ -354,13 +367,13 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       if (response.success) {
 
-        if (response.users && response.users.length > 0) {
-          this.users = response.users;
+        if (response.body && response.body.users && response.body.users.length > 0) {
+          this.users = response.body.users;
           this.dataSource = new MatTableDataSource(this.users);
-          this.totalData = response.totalData
+          this.totalData = response.body.totalData
         } else {
-          if(this.loggedInUser._id === response.users._id){
-          this.users = new Array(response.users);
+          if(this.loggedInUser._id === response.user._id){
+          this.users = new Array(response.user);
           this.dataSource = new MatTableDataSource(this.users);
         }
         }
