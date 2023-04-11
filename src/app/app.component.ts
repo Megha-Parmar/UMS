@@ -1,12 +1,18 @@
-import { PlatformLocation } from '@angular/common';
+import { CommonModule, PlatformLocation } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from './core/_service/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone:true,
+  imports:[RouterModule,
+    CommonModule,
+  ],
+  providers:[AuthService,HttpClient]
   // animations: ['routerAnimations']
 })
 export class AppComponent {
@@ -14,7 +20,7 @@ export class AppComponent {
 
   constructor(private location: PlatformLocation, private authService: AuthService, private router: Router) {
 
-    location.onPopState(() => {
+    this.location.onPopState(() => {
 
       if (this.authService.getUserDetail()) {
         // console.log(this.router.url);

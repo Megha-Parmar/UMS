@@ -1,20 +1,39 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
-import {  MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { AbstractControl, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { DD_MM_YYYY_Format } from 'src/app/_modal/date.model';
 import { AuthService } from 'src/app/core/_service/auth.service';
 import { UserService } from 'src/app/core/_service/user.service';
-import { User, Role } from '../../../../_modal/modal';
+import { Role, User } from '../../../../_modal/modal';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
+  standalone:true,
+  imports:[CommonModule,MatCardModule,MatTableModule,MatIconModule,MatDialogModule,
+    MatSortModule,MatButtonModule,MatMenuModule,MatProgressSpinnerModule,MatSnackBarModule, MatNativeDateModule,MatTooltipModule,
+    RouterModule,MatPaginatorModule,MatInputModule,ReactiveFormsModule,MatDatepickerModule],
+  providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format },
+  { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
