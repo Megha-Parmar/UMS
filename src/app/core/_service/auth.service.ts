@@ -72,7 +72,7 @@ export class AuthService {
     httpHeaders.set('Content-Type', 'application/json');
     // return this.http.post<Role>(API_ROLES_URL, role, { headers: httpHeaders});
     // return this.http.patch<any>(`/api/user/${id}`, data, { headers: httpHeaders });
-    return this.http.patch<any>(`/api/auth/generate-password`,data,{ headers: httpHeaders });
+    return this.http.patch<any>(`/api/auth/generate-password`, data, { headers: httpHeaders });
   }
   logout() {
     localStorage.clear();
