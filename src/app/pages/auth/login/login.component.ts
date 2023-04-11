@@ -1,6 +1,11 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/_service/auth.service';
@@ -10,6 +15,15 @@ import { UserService } from 'src/app/core/_service/user.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  standalone:true,
+  imports:[CommonModule,MatIconModule,MatInputModule,FormsModule,MatButtonModule,MatSnackBarModule,  ],
+  providers:[UserService, HttpClientModule,]
+  /*
+   MatInputModule,
+    FormsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatSnackBarModule, */
 })
 export class LoginComponent implements OnInit {
 
