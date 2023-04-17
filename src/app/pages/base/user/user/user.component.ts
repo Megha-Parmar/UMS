@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,16 +21,16 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DD_MM_YYYY_Format } from 'src/app/_modal/date.model';
 import { AuthService } from 'src/app/core/_service/auth.service';
 import { UserService } from 'src/app/core/_service/user.service';
-import { Role, User } from '../../../../_modal/modal';
+import { User } from '../../../../_modal/modal';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
-  standalone:true,
-  imports:[CommonModule,MatCardModule,MatTableModule,MatIconModule,MatDialogModule,
-    MatSortModule,MatButtonModule,MatMenuModule,MatProgressSpinnerModule,MatSnackBarModule, MatNativeDateModule,MatTooltipModule,
-    RouterModule,MatPaginatorModule,MatInputModule,ReactiveFormsModule,MatDatepickerModule],
+  standalone: true,
+  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, MatDialogModule,
+    MatSortModule, MatButtonModule, MatMenuModule, MatProgressSpinnerModule, MatNativeDateModule, MatTooltipModule,
+    RouterModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatDatepickerModule],
   providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_Format },
   { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
@@ -62,7 +62,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     "action",
   ];
   public loggedInUser: User;
-  public roleList : any[];
+  public roleList: any[];
 
 
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([])
@@ -83,30 +83,30 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
 
-    this.userService.getRoles().subscribe((res)=>{
+    this.userService.getRoles().subscribe((res) => {
       this.roleList = res.roleData;
     })
 
 
 
-    
+
     this.activatedRoute.data.subscribe((response: any) => {
-      
+      console.log("userdata==", response)
+
       this.loadingSubject = new BehaviorSubject<boolean>(false);
       if (response.users.success) {
-        // console.log("userdata", userData)
 
 
         if (this.loggedInUser.role.name === 'ADMIN') {
-          this.users =  response.users.body.users;
-          this.totalData =  response.users.body.totalData
+          this.users = response.users.body.users;
+          this.totalData = response.users.body.totalData
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
 
         } else {
 
 
-          this.users = new Array( response.users.body.user);
+          this.users = new Array(response.users.body.user);
 
           this.dataSource = new MatTableDataSource(this.users);
           this.dataSource.sort = this.sort;
@@ -225,19 +225,19 @@ export class UserComponent implements OnInit, AfterViewInit {
               duration: 3000,
             });
             // setTimeout(() => {
-              this.getUserData();
+            this.getUserData();
 
-              // if(response.user.role.name === 'ADMIN'){
-              // this.getUserData();
-              // } else {
-              //   if(this.loggedInUser._id === response.users._id){
-              //     this.users = new Array(response.user);
-              //     this.dataSource = new MatTableDataSource(this.users);
-              //   }
-              // }
+            // if(response.user.role.name === 'ADMIN'){
+            // this.getUserData();
+            // } else {
+            //   if(this.loggedInUser._id === response.users._id){
+            //     this.users = new Array(response.user);
+            //     this.dataSource = new MatTableDataSource(this.users);
+            //   }
+            // }
           }
 
-        },(err)=>{
+        }, (err) => {
           // console.log(err)
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
@@ -254,7 +254,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           if (response.success) {
             // console.log("userdata", userData)
-            this.user =  response.body;
+            this.user = response.body;
             this.getUserData()
             this.modalService.dismissAll();
             this._snackBar.open('User added successfully', 'close', {
@@ -263,7 +263,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
           }
 
-        },(err)=>{
+        }, (err) => {
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
           });
@@ -391,10 +391,10 @@ export class UserComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource(this.users);
           this.totalData = response.body.totalData
         } else {
-          if(this.loggedInUser._id === response.user._id){
-          this.users = new Array(response.user);
-          this.dataSource = new MatTableDataSource(this.users);
-        }
+          if (this.loggedInUser._id === response.user._id) {
+            this.users = new Array(response.user);
+            this.dataSource = new MatTableDataSource(this.users);
+          }
         }
 
         this.dataSource.sort = this.sort;

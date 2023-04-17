@@ -9,13 +9,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Route, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/_service/auth.service';
 import { UserComponent } from '../../base/user/user/user.component';
 import { LoginComponent } from './login.component';
@@ -27,9 +25,9 @@ describe('LoginComponent', () => {
   let restService: AuthService;
   let httpMock: HttpTestingController;
 
- const routes:Routes =[{
+  const routes: Routes = [{
     path: 'user',
-    component:UserComponent
+    component: UserComponent
     // canActivate: [ModuleGuard],
     // data: { roles: [UserRolesEnum.Agent, UserRolesEnum.Builder, UserRolesEnum.Admin] }
   }]
@@ -49,7 +47,7 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatButtonModule,
         NoopAnimationsModule,
-        MatSnackBarModule,
+
         HttpClientTestingModule
       ],
       providers: [],
@@ -83,7 +81,7 @@ describe('LoginComponent', () => {
       email: '',
       password: '',
     });
-     component.submitLogin();
+    component.submitLogin();
     fixture.detectChanges();
     expect(component.sampleForm.form.valid).toBeFalsy();
   });
@@ -120,7 +118,7 @@ describe('LoginComponent', () => {
     // });
   });
 
- 
+
   it('Login Sucess', () => {
     component.sampleForm.form.setValue({
       email: '1997meghal@gmail.com',
@@ -161,21 +159,21 @@ describe('LoginComponent', () => {
       totalData: 7,
     };
 
-   
+
     fixture.detectChanges();
-    
+
     component.submitLogin();
     fixture.detectChanges();
-    
+
     const req = httpMock.expectOne(
       `/api/auth/user?email=${payload.email}&password=${payload.password}`
     );
-      
+
 
 
     expect(req.request.method).toBe('GET');
 
-    req.flush(mockList, {status: 200, statusText: 'Success'});
+    req.flush(mockList, { status: 200, statusText: 'Success' });
 
     httpMock.verify();
     fixture.detectChanges();
@@ -195,28 +193,28 @@ describe('LoginComponent', () => {
         component.sampleForm.form.value.password
       ),
     };
-    let arr:any=[];
+    let arr: any = [];
     const mockList = {
       status_code: 200,
       success: true,
-      body:arr,
+      body: arr,
       totalData: 7,
     };
 
-   
+
     fixture.detectChanges();
-    
+
     component.submitLogin();
     fixture.detectChanges();
-    
+
     const req = httpMock.expectOne(
       `/api/auth/user?email=${payload.email}&password=${payload.password}`
     );
-      
+
 
 
     expect(req.request.method).toBe('GET');
-    req.flush(mockList, {status: 200, statusText: 'Success'});
+    req.flush(mockList, { status: 200, statusText: 'Success' });
 
     httpMock.verify();
     fixture.detectChanges();

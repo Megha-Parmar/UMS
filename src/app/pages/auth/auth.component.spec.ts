@@ -7,7 +7,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -28,7 +27,7 @@ describe('AuthComponent', () => {
         MatIconModule,
         MatButtonModule,
         RouterTestingModule,
-        MatSnackBarModule,]
+      ]
     })
       .compileComponents();
   });

@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MustMatchDirective } from 'src/app/core/_helper';
 import { AuthService } from 'src/app/core/_service/auth.service';
@@ -15,8 +15,8 @@ import { UserService } from 'src/app/core/_service/user.service';
   selector: 'app-generate-password',
   templateUrl: './generate-password.component.html',
   styleUrls: ['./generate-password.component.scss'],
-  standalone:true,
-  imports:[FormsModule,CommonModule,MustMatchDirective, MatFormFieldModule,MatIconModule,MatSnackBarModule,MatInputModule,MatButtonModule]
+  standalone: true,
+  imports: [FormsModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule]
 })
 export class GeneratePasswordComponent {
 
@@ -29,7 +29,7 @@ export class GeneratePasswordComponent {
 
   @ViewChild('newPasswordForm') sampleForm: NgForm;
 
-  constructor(public authService: AuthService,private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
+  constructor(public authService: AuthService, private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
     console.info('lifecycle hooks ngOnInit called');
 
@@ -38,14 +38,14 @@ export class GeneratePasswordComponent {
   // submitLogin(form: NgForm) {
   submitGeneratePassword() {
 
-    
+
     if (this.sampleForm.valid) {
 
       // this.userService.encryptString(form.form.value.password).then((value) => {
-        let id;
-        this.route.queryParams.subscribe(params => {
-         id = params['id']
-        });
+      let id;
+      this.route.queryParams.subscribe(params => {
+        id = params['id']
+      });
       const payload = {
         id: id,
         password: this.sampleForm.form.value.password
@@ -59,10 +59,10 @@ export class GeneratePasswordComponent {
             duration: 3000,
           });
 
-        } 
+        }
 
         // });
-      },err=>{
+      }, err => {
         this._snackBar.open(err.error.message, 'close', {
           duration: 3000,
         });

@@ -12,14 +12,14 @@ export class AuthService {
 
   saveUserDetail(user: any) {
 
-    if(!localStorage.user){
-    localStorage.setItem('userName', user.userName)
+    if (!localStorage.user) {
+      localStorage.setItem('userName', user.user.userName)
 
-    localStorage.setItem('user', JSON.stringify(user.user))
-    localStorage.setItem('token', user.token)
-  }else{
-    localStorage.setItem('user', JSON.stringify(user))
-  }
+      localStorage.setItem('user', JSON.stringify(user.user))
+      localStorage.setItem('token', user.token)
+    } else {
+      localStorage.setItem('user', JSON.stringify(user))
+    }
 
   }
 
@@ -33,9 +33,9 @@ export class AuthService {
     return null;
   }
 
-  getLocalStrorageDetail(key:string) {
+  getLocalStrorageDetail(key: string) {
     if (localStorage.getItem(key)) {
-      
+
       return localStorage.getItem(key);
 
     }
@@ -48,7 +48,7 @@ export class AuthService {
 
 
   }
-  
+
   getUserName() {
     return localStorage.getItem('userName')
 
@@ -58,11 +58,11 @@ export class AuthService {
 
 
   login(data: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>(`/api/auth/login`,data);
+    return this.http.post<any>(`/api/auth/login`, data);
 
     // return this.http.get<any>(`https://jsonplaceholder.typicode.com/posts`);
 
-    
+
     // return this.http.get<any>(`http://localhost:3000/api/auth/user?email=${data.email}&password=${data.password}`); // AT THE TIME  OF `ng test`
 
   }

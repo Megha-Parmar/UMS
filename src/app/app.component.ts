@@ -8,11 +8,11 @@ import { AuthService } from './core/_service/auth.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone:true,
-  imports:[RouterModule,
+  standalone: true,
+  imports: [RouterModule,
     CommonModule,
   ],
-  providers:[AuthService,HttpClient]
+  providers: [AuthService, HttpClient]
   // animations: ['routerAnimations']
 })
 export class AppComponent {

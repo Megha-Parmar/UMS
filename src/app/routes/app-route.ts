@@ -4,44 +4,36 @@ import { BaseComponent } from '../pages/base/base.component';
 
 
 export const appRoute: Routes = [
-    {
-      path: 'auth',
-      children: [
-        {
-          path: '',
-          loadChildren: () => import('./auth-route').then(m => m.AuthRoute),
-        }
-      ]
-    },
-    {
-      path: '',
-      component: BaseComponent,
-      canActivate: [AuthGuard],
-      children: [
-        {
-          path: '',
-          redirectTo: '/user',
-          pathMatch: 'full'
-        },
-        // {
-        //   path: 'dashboard',
-        //   component: DashboardComponent,
-        //   // loadChildren: () => import('./views/pages/base/project/project.module').then(m => m.ProjectModule),
-        //   canActivate: [ModuleGuard],
-        //   data: { roles: [UserRolesEnum.Builder, UserRolesEnum.Admin, UserRolesEnum.Agent] }
-        // },
-  
-        {
-          path: 'user',
-          loadChildren: () => import('../routes/user-route').then(m => m.UserRoute),
-          // canActivate: [ModuleGuard],
-          // data: { roles: [UserRolesEnum.Agent, UserRolesEnum.Builder, UserRolesEnum.Admin] }
-        },
-  
-      ],
-    }
-  
-  
-    //  { path: '', redirectTo: 'auth', pathMatch: 'full' },
-    // { path: '**', redirectTo: 'auth', pathMatch: 'full' }
-  ];
+  {
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./auth-route').then(m => m.AuthRoute),
+      }
+    ]
+  },
+  {
+    path: '',
+    component: BaseComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: '/user',
+        pathMatch: 'full'
+      },
+      {
+        path: 'user',
+        loadChildren: () => import('../routes/user-route').then(m => m.UserRoute),
+        // canActivate: [ModuleGuard],
+        // data: { roles: [UserRolesEnum.Agent, UserRolesEnum.Builder, UserRolesEnum.Admin] }
+      },
+
+    ],
+  }
+
+
+  //  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'auth', pathMatch: 'full' }
+];

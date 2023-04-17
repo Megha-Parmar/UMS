@@ -7,4 +7,10 @@ export const UserRoute: Routes = [
     path: '',
     loadComponent: () => import('../pages/base/user/user/user.component').then(m => m.UserComponent),
     resolve: { users: UserListResolver }
-  }]
+  },
+  {
+    path: '',
+    loadComponent: () => import('../pages/base/user/user/user.component').then(m => m.UserComponent),
+    resolve: { users: UserListResolver }
+  }
+]

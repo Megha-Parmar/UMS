@@ -5,7 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/_service/auth.service';
@@ -15,9 +15,9 @@ import { UserService } from 'src/app/core/_service/user.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone:true,
-  imports:[CommonModule,MatIconModule,MatInputModule,FormsModule,MatButtonModule,MatSnackBarModule,  ],
-  providers:[UserService, HttpClientModule,]
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatInputModule, FormsModule, MatButtonModule,],
+  providers: [UserService, HttpClientModule,]
   /*
    MatInputModule,
     FormsModule,
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   // submitLogin(form: NgForm) {
   submitLogin() {
 
-    
+
     if (this.sampleForm.valid) {
 
       // this.userService.encryptString(form.form.value.password).then((value) => {
@@ -55,14 +55,14 @@ export class LoginComponent implements OnInit {
       // payload['password'] = this.userService.encryptUsingAES256(payload['password'])
       this.authService.login(payload).subscribe(response => {
 
-        this.response=response
+        this.response = response
         if (response.success) {
 
 
 
-          if (response?.body.user ) {
+          if (response?.body.user) {
             this.authService.saveUserDetail(response.body);
-            
+
             this.router.navigate(['user']);
             this._snackBar.open('Login successfully.', 'close', {
               duration: 3000,
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
         }
 
         // });
-      },err=>{
+      }, err => {
         this._snackBar.open(err.error.message, 'close', {
           duration: 3000,
         });
