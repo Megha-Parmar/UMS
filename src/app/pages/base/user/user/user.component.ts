@@ -100,20 +100,12 @@ export class UserComponent implements OnInit, AfterViewInit {
         if (this.loggedInUser.role.name === 'ADMIN') {
           this.users = response.users.body.users;
           this.totalData = response.users.body.totalData
-          this.dataSource = new MatTableDataSource(this.users);
-          this.dataSource.sort = this.sort;
-
         } else {
-
-
-          this.users = new Array(response.users.body.user);
-
-          this.dataSource = new MatTableDataSource(this.users);
-          this.dataSource.sort = this.sort;
-
+          this.users = new Array(response.users.body.users);
           this.totalData = this.users.length
         }
-
+        this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.sort = this.sort;
 
 
       }
@@ -200,7 +192,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   submit() {
     if (this.userForm.valid) {
 
-      this.userForm.patchValue({ status: 'ACTIVE', uniqueId: "U_" + (Math.random() + 1).toString(36).substring(7) })
+      this.userForm.patchValue({ status: 'ACTIVE' })
 
       let obj = this.userForm.value;
       // obj['role'] = this.roleList.find((x) => x._id == this.userForm.value.role);
@@ -226,19 +218,10 @@ export class UserComponent implements OnInit, AfterViewInit {
             });
             // setTimeout(() => {
             this.getUserData();
-
-            // if(response.user.role.name === 'ADMIN'){
-            // this.getUserData();
-            // } else {
-            //   if(this.loggedInUser._id === response.users._id){
-            //     this.users = new Array(response.user);
-            //     this.dataSource = new MatTableDataSource(this.users);
-            //   }
-            // }
           }
 
-        }, (err) => {
-          // console.log(err)
+        }, err => {
+          console.log("err =>", err)
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
           });
@@ -391,8 +374,8 @@ export class UserComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource(this.users);
           this.totalData = response.body.totalData
         } else {
-          if (this.loggedInUser._id === response.user._id) {
-            this.users = new Array(response.user);
+          if (this.loggedInUser._id === response.body._id) {
+            this.users = new Array(response.body);
             this.dataSource = new MatTableDataSource(this.users);
           }
         }
@@ -402,6 +385,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
       this.showLoader$ = of(false);
       this.changeDetectorRef.detectChanges();
+    }, (err) => {
+      console.log("err", err())
     });
   }
 

@@ -17,6 +17,11 @@ export const AuthRoute: Routes = [
         loadComponent: () => import('../pages/auth/login/login.component').then(m => m.LoginComponent),
         // data: {returnUrl: window.location.pathname}
       },
+      {
+        path: 'generate-password',
+        loadComponent: () => import('../pages/auth/generate-password/generate-password.component').then(m => m.GeneratePasswordComponent),
+        // data: {returnUrl: window.location.pathname}
+      },
     ]
   },
 ]

@@ -129,9 +129,7 @@ describe('LoginComponent', () => {
 
     const payload = {
       email: component.sampleForm.form.value.email,
-      password: component.userService.encryptUsingAES256(
-        component.sampleForm.form.value.password
-      ),
+      password: ''
     };
     const mockList = {
       status_code: 200,
@@ -189,9 +187,7 @@ describe('LoginComponent', () => {
 
     const payload = {
       email: component.sampleForm.form.value.email,
-      password: component.userService.encryptUsingAES256(
-        component.sampleForm.form.value.password
-      ),
+      password: ''
     };
     let arr: any = [];
     const mockList = {
