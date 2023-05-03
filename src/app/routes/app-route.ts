@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../core/auth/_guard/auth.guard';
+import { AuthGuard, LoginGuard } from '../core/auth/_guard/auth.guard';
 import { BaseComponent } from '../pages/base/base.component';
 
 
 export const appRoute: Routes = [
   {
     path: 'auth',
+    canActivate: [LoginGuard],
     children: [
       {
         path: '',
@@ -31,9 +32,7 @@ export const appRoute: Routes = [
       },
 
     ],
-  }
-
-
-  //  { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  // { path: '**', redirectTo: 'auth', pathMatch: 'full' }
+  },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth', pathMatch: 'full' }
 ];

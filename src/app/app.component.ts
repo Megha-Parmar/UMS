@@ -1,8 +1,5 @@
-import { CommonModule, PlatformLocation } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { AuthService } from './core/_service/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,25 +7,13 @@ import { AuthService } from './core/_service/auth.service';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [RouterModule,
-    CommonModule,
+    // CommonModule,
   ],
-  providers: [AuthService, HttpClient]
+  // providers: [AuthService, HttpClient]
   // animations: ['routerAnimations']
 })
 export class AppComponent {
   title = 'UMS';
 
-  constructor(private location: PlatformLocation, private authService: AuthService, private router: Router) {
-
-    this.location.onPopState(() => {
-
-      if (this.authService.getUserDetail()) {
-        // console.log(this.router.url);
-        if (this.router.url == '/user') {
-          location.forward()
-        }
-
-      }
-    });
-  }
+  constructor() { }
 }

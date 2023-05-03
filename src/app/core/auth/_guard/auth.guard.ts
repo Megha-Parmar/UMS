@@ -7,3 +7,9 @@ export const AuthGuard = (next: ActivatedRouteSnapshot) => {
     .getUserName() ? true : createUrlTreeFromSnapshot(next, ['/', 'auth']);
 
 };
+
+export const LoginGuard = (next: ActivatedRouteSnapshot) => {
+  return !inject(AuthService)
+    .getUserName() ? true : createUrlTreeFromSnapshot(next, ['/', 'user']);
+
+};

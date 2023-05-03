@@ -50,6 +50,8 @@ export class AuthService {
   }
 
   getUserName() {
+    // const userName = localStorage.getItem('userName');
+    // return userName ? true : false;
     return localStorage.getItem('userName')
 
 
