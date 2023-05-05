@@ -31,18 +31,9 @@ export class GeneratePasswordComponent {
 
   constructor(public authService: AuthService, private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
 
     // this.route.queryParams.subscribe(params => {
-
-    //   console.log(params['id'])
-
-    //   console.log(encodeURIComponent(params['id']))
-    //   // console.log(decodeURIComponent("U2FsdGVkX18W6OGpof%2FJmCbX1EEKUpvxoMULUkffi3DCjItkTk9S%20beWYoAk0knW"))
-
-    //   console.log(encodeURI(params['id']))
-    //   // console.log(decodeURIComponent("U2FsdGVkX18W6OGpof%2FJmCbX1EEKUpvxoMULUkffi3DCjItkTk9S%20beWYoAk0knW"))
-    // });
   }
 
   // submitLogin(form: NgForm) {

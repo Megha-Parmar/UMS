@@ -21,7 +21,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown
             }
 
 
-            if (err.status === 401) {
+            if (err.status === 401 || err.status === 403) {
                 localStorage.clear();
                 // this.store.dispatch(new Logout());
                 router.navigate(['auth/login']);

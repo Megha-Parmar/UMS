@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   response: any;
   constructor(public authService: AuthService, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
 
   }
 
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           if (response?.body.user) {
             this.authService.saveUserDetail(response.body);
 
-            this.router.navigate(['user']);
+            this.router.navigate(['']); //redirected to dashboard
             this._snackBar.open('Login successfully.', 'close', {
               duration: 3000,
             });

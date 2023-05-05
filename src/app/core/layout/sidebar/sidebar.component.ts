@@ -8,16 +8,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   standalone: true,
-  imports:[MatIconModule,
+  imports: [MatIconModule,
     MatListModule,
-  RouterModule]
+    RouterModule]
 })
 export class SidebarComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
   }
 
 }

@@ -91,7 +91,6 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
     this.activatedRoute.data.subscribe((response: any) => {
-      console.log("userdata==", response)
 
       this.loadingSubject = new BehaviorSubject<boolean>(false);
       if (response.users.success) {
@@ -221,7 +220,6 @@ export class UserComponent implements OnInit, AfterViewInit {
           }
 
         }, err => {
-          console.log("err =>", err)
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
           });

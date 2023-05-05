@@ -12,7 +12,7 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
 
   }
 

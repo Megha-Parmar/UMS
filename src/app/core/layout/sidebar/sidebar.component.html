@@ -4,6 +4,16 @@
     <!-- <mat-list-item role="listitem"><a href="create">Create</a></mat-list-item>
     <mat-list-item role="listitem"><a href="./../../pages/base/user/user.module.ts">List</a></mat-list-item>
     <mat-list-item role="listitem">Item 3</mat-list-item> -->
+    <mat-list-item role="listitem"><a class="sidebar-link" [routerLink]="['/dashboard']">
+            <span class="sidebar-link-icon">
+                <mat-icon>home</mat-icon>
+
+            </span>
+            <span class="sidebar-link-text">
+                Dashboard
+            </span>
+        </a>
+    </mat-list-item>
     <mat-list-item role="listitem"><a class="sidebar-link" [routerLink]="['/user']">
             <span class="sidebar-link-icon">
                 <mat-icon>supervisor_account</mat-icon>
@@ -15,4 +25,5 @@
             </span>
         </a>
     </mat-list-item>
+
 </mat-list>

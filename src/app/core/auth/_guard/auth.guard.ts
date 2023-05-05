@@ -1,15 +1,15 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, createUrlTreeFromSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../_service/auth.service';
 
-export const AuthGuard = (next: ActivatedRouteSnapshot) => {
+export const AuthGuard = () => {
   return inject(AuthService)
-    .getUserName() ? true : createUrlTreeFromSnapshot(next, ['/', 'auth']);
+    .getUserName() ? true : inject(Router).parseUrl('/auth/login');
 
 };
 
-export const LoginGuard = (next: ActivatedRouteSnapshot) => {
+export const LoginGuard = () => {
   return !inject(AuthService)
-    .getUserName() ? true : createUrlTreeFromSnapshot(next, ['/', 'user']);
+    .getUserName() ? true : inject(Router).parseUrl('/dashboard');
 
 };

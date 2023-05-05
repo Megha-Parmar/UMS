@@ -1,4 +1,3 @@
-import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -11,11 +10,11 @@ import { SidebarComponent } from 'src/app/core/layout/sidebar/sidebar.component'
   selector: 'app-base',
   templateUrl: './base.component.html',
   styleUrls: ['./base.component.scss'],
-  standalone:true,
-  imports:[ 
+  standalone: true,
+  imports: [
     CommonModule,
-   HeaderComponent,
-   FooterComponent,
+    HeaderComponent,
+    FooterComponent,
     RouterModule,
     MatSidenavModule,
     SidebarComponent
@@ -26,7 +25,7 @@ export class BaseComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
 
   }
 

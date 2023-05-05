@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  standalone:true,
-  imports:[    
+  standalone: true,
+  imports: [
     MatGridListModule,
     RouterModule,//.forChild(AuthRoute)
     CommonModule
@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
   today = new Date();
 
   ngOnInit(): void {
-    console.info('lifecycle hooks ngOnInit called');
+
   }
 
 }

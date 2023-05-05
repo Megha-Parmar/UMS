@@ -17,22 +17,23 @@ export const appRoute: Routes = [
   {
     path: '',
     component: BaseComponent,
-    canActivate: [AuthGuard],
+    canMatch: [AuthGuard],
     children: [
       {
         path: '',
-        redirectTo: '/user',
+        redirectTo: '/dashboard',
         pathMatch: 'full'
       },
       {
         path: 'user',
         loadChildren: () => import('../routes/user-route').then(m => m.UserRoute),
-        // canActivate: [ModuleGuard],
-        // data: { roles: [UserRolesEnum.Agent, UserRolesEnum.Builder, UserRolesEnum.Admin] }
       },
-
+      {
+        path: 'dashboard',
+        loadComponent: () => import('../pages/base/dashboard/dashboard.component').then(m => m.DashboardComponent),
+      },
     ],
+
   },
-  { path: '', redirectTo: 'auth', pathMatch: 'full' },
-  { path: '**', redirectTo: 'auth', pathMatch: 'full' }
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

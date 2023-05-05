@@ -6,14 +6,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterModule,
-    // CommonModule,
-  ],
-  // providers: [AuthService, HttpClient]
-  // animations: ['routerAnimations']
+  imports: [RouterModule]
 })
 export class AppComponent {
   title = 'UMS';
-
-  constructor() { }
 }

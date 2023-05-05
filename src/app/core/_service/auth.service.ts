@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/_modal/modal';
+import { GlobalConstants } from 'src/app/common/GlobalConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,18 @@ export class AuthService {
   saveUserDetail(user: any) {
 
     if (!localStorage.user) {
-      localStorage.setItem('userName', user.user.userName)
+      localStorage.setItem(GlobalConstants.userName, user.user.userName)
 
-      localStorage.setItem('user', JSON.stringify(user.user))
-      localStorage.setItem('token', user.token)
+      localStorage.setItem(GlobalConstants.user, JSON.stringify(user.user))
+      localStorage.setItem(GlobalConstants.token, user.token)
     } else {
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem(GlobalConstants.user, JSON.stringify(user))
     }
 
   }
 
   getUserDetail() {
-    if (localStorage.getItem('user')) {
+    if (localStorage.getItem(GlobalConstants.user)) {
       const user: User = JSON.parse(localStorage.user)
       // return localStorage.getItem(JSON.parse('user'))
       return user;
@@ -33,7 +34,7 @@ export class AuthService {
     return null;
   }
 
-  getLocalStrorageDetail(key: string) {
+  getLocalStorageDetail(key: string) {
     if (localStorage.getItem(key)) {
 
       return localStorage.getItem(key);
@@ -44,7 +45,7 @@ export class AuthService {
 
 
   saveUserName(user: User) {
-    localStorage.setItem('userName', user.userName)
+    localStorage.setItem(GlobalConstants.userName, user.userName)
 
 
   }
@@ -52,7 +53,7 @@ export class AuthService {
   getUserName() {
     // const userName = localStorage.getItem('userName');
     // return userName ? true : false;
-    return localStorage.getItem('userName')
+    return localStorage.getItem(GlobalConstants.userName)
 
 
   }
