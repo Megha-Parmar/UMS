@@ -8,8 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/_service/auth.service';
-import { UserService } from 'src/app/core/_service/user.service';
+import { AuthService } from '@service/auth.service';
+import { UserService } from '@service/user.service';
+
 
 @Component({
   selector: 'app-login',

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
-import { UserListResolver } from "../core/auth/_resolver/user-list.resolver";
+import { UserListResolver } from "@guard/_resolver/user-list.resolver";
+
 
 
 export const UserRoute: Routes = [

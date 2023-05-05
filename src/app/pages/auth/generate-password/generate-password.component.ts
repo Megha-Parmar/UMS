@@ -7,9 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MustMatchDirective } from 'src/app/core/_helper';
-import { AuthService } from 'src/app/core/_service/auth.service';
-import { UserService } from 'src/app/core/_service/user.service';
+import { MustMatchDirective } from '@helper/must-match.directive';
+import { AuthService } from '@service/auth.service';
+import { UserService } from '@service/user.service';
+
 
 @Component({
   selector: 'app-generate-password',

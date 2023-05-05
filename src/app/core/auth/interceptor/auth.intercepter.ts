@@ -1,8 +1,9 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { User } from "src/app/_modal/modal";
-import { GlobalConstants } from "src/app/common/GlobalConstants";
-import { AuthService } from "../../_service/auth.service";
+import { GlobalConstants } from "@common/GlobalConstants";
+import { User } from "@modal/modal";
+import { AuthService } from "@service/auth.service";
+
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
 

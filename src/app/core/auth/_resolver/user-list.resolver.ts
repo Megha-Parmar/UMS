@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
-import { UserService } from '../../_service/user.service';
+import { UserService } from '@service/user.service';
+
 
 export const UserListResolver = () => {
   const userService = inject(UserService);

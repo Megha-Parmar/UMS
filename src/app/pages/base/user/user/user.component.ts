@@ -16,12 +16,13 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { DD_MM_YYYY_Format } from '@modal/date.model';
+import { User } from '@modal/modal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '@service/auth.service';
+import { UserService } from '@service/user.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { DD_MM_YYYY_Format } from 'src/app/_modal/date.model';
-import { AuthService } from 'src/app/core/_service/auth.service';
-import { UserService } from 'src/app/core/_service/user.service';
-import { User } from '../../../../_modal/modal';
+
 
 @Component({
   selector: 'app-user',

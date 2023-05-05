@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '@modal/modal';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/_modal/modal';
 import { AuthService } from './auth.service';
+
+
 // import * as bcrypt from 'bcryptjs';
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { AuthService } from '../../_service/auth.service';
+import { AuthService } from '@service/auth.service';
+
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthGuard, LoginGuard } from '../core/auth/_guard/auth.guard';
-import { BaseComponent } from '../pages/base/base.component';
+import { AuthGuard, LoginGuard } from '@guard/_guard/auth.guard';
+import { BaseComponent } from '@pages/base/base.component';
 
 
 export const appRoute: Routes = [

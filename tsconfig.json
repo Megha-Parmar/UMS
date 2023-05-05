@@ -22,7 +22,17 @@
       "es2018",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "@modal/*":["src/app/_modal/*"],
+      "@common/*":["src/app/common/*"],
+      "@helper/*":["src/app/core/_helper/*"],
+      "@service/*":["src/app/core/_service/*"],
+      "@directive/*":["src/app/core/directive/*"],
+      "@guard/*":["src/app/core/auth/*"],
+      "@pages/*":["src/app/pages/*"],
+      "@layout/*":["src/app/core/layout/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableIvy": true,

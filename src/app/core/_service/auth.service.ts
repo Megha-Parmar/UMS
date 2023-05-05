@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '@modal/modal';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/_modal/modal';
 import { GlobalConstants } from 'src/app/common/GlobalConstants';
 
 @Injectable({
