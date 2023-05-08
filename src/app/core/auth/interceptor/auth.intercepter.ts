@@ -2,19 +2,19 @@ import { HttpInterceptorFn } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { GlobalConstants } from "@common/GlobalConstants";
 import { User } from "@modal/modal";
-import { AuthService } from "@service/auth.service";
+import { EncryptDecryptService } from "@service/encrypt-decrypt.service";
 
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
 
-    const authService = inject(AuthService);
-    const user = <User>authService.getUserDetail();
+    const encryptDecryptService = inject(EncryptDecryptService);
+    const user = <User>encryptDecryptService.getDecryptedLocalStorage(GlobalConstants.user);
     if (user) {
         const userName = user.userName
         request = request.clone({
             setHeaders: {
                 UserName: `${userName}`,
-                Authorization: 'Bearer ' + authService.getLocalStorageDetail(GlobalConstants.token)
+                Authorization: 'Bearer ' + encryptDecryptService.getDecryptedLocalStorage(GlobalConstants.token)
             }
         });
     }

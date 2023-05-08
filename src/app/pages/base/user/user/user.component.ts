@@ -16,10 +16,12 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { GlobalConstants } from '@common/GlobalConstants';
 import { DD_MM_YYYY_Format } from '@modal/date.model';
 import { User } from '@modal/modal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '@service/auth.service';
+import { EncryptDecryptService } from '@service/encrypt-decrypt.service';
 import { UserService } from '@service/user.service';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
@@ -72,6 +74,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService, public dialogRef: MatDialogRef<any>,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
+    public encryptDecryptService: EncryptDecryptService,
     private formBuilder: UntypedFormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     private modalService: NgbModal,
@@ -80,28 +83,23 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // this.getUserData();
-    this.loggedInUser = this.authService.getUserDetail();
-
-
-
+    this.loggedInUser = this.encryptDecryptService.getDecryptedLocalStorage(GlobalConstants.user);
     this.userService.getRoles().subscribe((res) => {
       this.roleList = res.roleData;
     })
 
-
-
-
     this.activatedRoute.data.subscribe((response: any) => {
 
       this.loadingSubject = new BehaviorSubject<boolean>(false);
-      if (response.users.success) {
+      console.log("respolve", response);
+      if (response.userResolver.success) {
 
 
         if (this.loggedInUser.role.name === 'ADMIN') {
-          this.users = response.users.body.users;
-          this.totalData = response.users.body.totalData
+          this.users = response.userResolver.body.users;
+          this.totalData = response.userResolver.body.totalData
         } else {
-          this.users = new Array(response.users.body.users);
+          this.users = new Array(response.userResolver.body.users);
           this.totalData = this.users.length
         }
         this.dataSource = new MatTableDataSource(this.users);
@@ -147,7 +145,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
       if (dialogResult) {
-        this.userService.DeleteUserData(user._id).subscribe(response => {
+        this.userService.deleteUserData(user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
@@ -200,7 +198,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
       if (this.isInEditMode) {
 
-        this.userService.UpdateUserData(obj, this.user._id).subscribe(response => {
+        this.userService.updateUserData(obj, this.user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
@@ -230,7 +228,7 @@ export class UserComponent implements OnInit, AfterViewInit {
         // obj['password'] = this.userService.encryptUsingAES256("Test@123");
         obj['password'] = "Test@123";
 
-        this.userService.SaveUserData(obj).subscribe(response => {
+        this.userService.saveUserData(obj).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
 
 
@@ -364,17 +362,19 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     this.userService.getUserData(userData).subscribe(response => {
       this.loadingSubject = new BehaviorSubject<boolean>(false);
-
+      console.log("response", response);
 
       if (response.success) {
+        if (Array.isArray(response.body.users)) {
 
-        if (response.body && response.body.users && response.body.users.length > 0) {
-          this.users = response.body.users;
-          this.dataSource = new MatTableDataSource(this.users);
-          this.totalData = response.body.totalData
+          if (response.body.users.length > 0) {
+            this.users = response.body.users;
+            this.dataSource = new MatTableDataSource(this.users);
+            this.totalData = response.body.totalData
+          }
         } else {
-          if (this.loggedInUser._id === response.body._id) {
-            this.users = new Array(response.body);
+          if (this.loggedInUser._id === response.body.users._id) {
+            this.users = new Array(response.body.users);
             this.dataSource = new MatTableDataSource(this.users);
           }
         }

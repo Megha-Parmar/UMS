@@ -2,6 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from "@angular/comm
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { routerURLConstant } from "@common/GlobalConstants";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
@@ -24,7 +25,7 @@ export const ErrorInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown
             if (err.status === 401 || err.status === 403) {
                 localStorage.clear();
                 // this.store.dispatch(new Logout());
-                router.navigate(['auth/login']);
+                router.navigate([`${routerURLConstant.auth}/${routerURLConstant.login}`]);
                 _snackBar.open('Session expire...', 'close', {
                     duration: 3000,
                 });

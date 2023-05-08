@@ -19,12 +19,6 @@ import { UserService } from '@service/user.service';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatInputModule, FormsModule, MatButtonModule,],
   providers: [UserService, HttpClientModule,]
-  /*
-   MatInputModule,
-    FormsModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatSnackBarModule, */
 })
 export class LoginComponent implements OnInit {
 

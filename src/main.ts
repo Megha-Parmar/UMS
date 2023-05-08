@@ -24,9 +24,11 @@ bootstrapApplication(AppComponent, {
     ),
     // CommonModule,
     provideAnimations(),
+    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }
     // AuthService,    
 
   ],
 
 })
 
+function getLocalStorage() { return typeof window !== 'undefined' ? window.localStorage : null; }

@@ -11,29 +11,21 @@ export interface User {
     status: string,
     role: Role
 }
-
-
 export interface Role {
     _id: number;
     name: string;
     value: string
 }
 
-export var userArray: User[];
-
-export var userObj: User;
-
 export interface ListResponse {
-    success: boolean,
-    body: User[] | User,
-    totalData: number
+    users: User | User[];
+    currentPage: string;
+    totalData: number;
 }
 
-
-export interface SingleResponse {
-    success: boolean,
-    body: User,
-    totalData: number
-}
-
-export type APIResponse = ListResponse | SingleResponse
+export interface APIResponse<Modal> {
+    body: Modal;
+    success: boolean;
+    statusCode: number;
+    message: string
+} 

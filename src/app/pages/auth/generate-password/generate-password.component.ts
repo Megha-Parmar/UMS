@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { routerURLConstant } from '@common/GlobalConstants';
 import { MustMatchDirective } from '@helper/must-match.directive';
 import { AuthService } from '@service/auth.service';
 import { UserService } from '@service/user.service';
@@ -55,11 +56,9 @@ export class GeneratePasswordComponent {
         id: id.replace(/ /g, '+'), // It' replace '+' to '' sign in url
         password: this.sampleForm.form.value.password
       }
-      // payload['password'] = value
-      // payload['password'] = this.userService.encryptUsingAES256(payload['password'])
       this.authService.setNewPassword(payload).subscribe(response => {
         if (response.success) {
-          this.router.navigate(['auth/login'])
+          this.router.navigate([`${routerURLConstant.auth}/${routerURLConstant.login}`])
           this._snackBar.open('Password updated successfully.', 'close', {
             duration: 3000,
           });

@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { AuthService } from '@service/auth.service';
+import { routerURLConstant } from '@common/GlobalConstants';
+import { LocalStorageService } from '@service/local-storage.service';
 
 
 @Component({
@@ -19,14 +20,14 @@ import { AuthService } from '@service/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private localStorageService: LocalStorageService, private router: Router) { }
 
   ngOnInit(): void {
 
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['auth/login']);
+    this.localStorageService.clear()
+    this.router.navigate([`${routerURLConstant.auth}/${routerURLConstant.login}`]);
   }
 }

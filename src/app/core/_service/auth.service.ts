@@ -1,84 +1,43 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '@modal/modal';
 import { Observable } from 'rxjs';
 import { GlobalConstants } from 'src/app/common/GlobalConstants';
+import { EncryptDecryptService } from './encrypt-decrypt.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private encryptDecryptService: EncryptDecryptService, private localStorageService: LocalStorageService) { }
 
   saveUserDetail(user: any) {
-
-    if (!localStorage.user) {
-      localStorage.setItem(GlobalConstants.userName, user.user.userName)
-
-      localStorage.setItem(GlobalConstants.user, JSON.stringify(user.user))
-      localStorage.setItem(GlobalConstants.token, user.token)
+    if (!this.encryptDecryptService.getDecryptedLocalStorage(GlobalConstants.user)) {
+      this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.userName, user.user.userName);
+      this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.user, user.user);
+      this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.token, user.token);
     } else {
-      localStorage.setItem(GlobalConstants.user, JSON.stringify(user))
+      this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.user, user.user);
     }
-
   }
 
-  getUserDetail() {
-    if (localStorage.getItem(GlobalConstants.user)) {
-      const user: User = JSON.parse(localStorage.user)
-      // return localStorage.getItem(JSON.parse('user'))
-      return user;
-
-    }
-    return null;
+  getDecryptLocalStorageDetail(key: string) {
+    return this.encryptDecryptService.getDecryptedLocalStorage(key)
   }
 
-  getLocalStorageDetail(key: string) {
-    if (localStorage.getItem(key)) {
-
-      return localStorage.getItem(key);
-
-    }
-    return null;
+  setEncryptLocalStorageDetail(key: string, value) {
+    return this.encryptDecryptService.setEncryptedLocalStorage(key, value)
   }
-
-
-  saveUserName(user: User) {
-    localStorage.setItem(GlobalConstants.userName, user.userName)
-
-
-  }
-
-  getUserName() {
-    // const userName = localStorage.getItem('userName');
-    // return userName ? true : false;
-    return localStorage.getItem(GlobalConstants.userName)
-
-
-  }
-
-
 
   login(data: { email: string; password: string }): Observable<any> {
-    return this.http.post<any>(`/api/auth/login`, data);
-
-    // return this.http.get<any>(`https://jsonplaceholder.typicode.com/posts`);
-
-
-    // return this.http.get<any>(`http://localhost:3000/api/auth/user?email=${data.email}&password=${data.password}`); // AT THE TIME  OF `ng test`
-
+    return this.http.post<any>(`${GlobalConstants.apiUrls.auth.login}`, data);
   }
 
   setNewPassword(data: { id: string; password: string }): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    // return this.http.post<Role>(API_ROLES_URL, role, { headers: httpHeaders});
-    // return this.http.patch<any>(`/api/user/${id}`, data, { headers: httpHeaders });
-    return this.http.patch<any>(`/api/auth/generate-password`, data, { headers: httpHeaders });
-  }
-  logout() {
-    localStorage.clear();
+    return this.http.patch<any>(`${GlobalConstants.apiUrls.auth.setNewPassword}`, data, { headers: httpHeaders });
   }
 
   ngOnDestroy() {
