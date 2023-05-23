@@ -33,6 +33,12 @@ export const appRoute: Routes = [
         path: `${routerURLConstant.dashboard}`,
         loadComponent: () => import('../pages/base/dashboard/dashboard.component').then(m => m.DashboardComponent),
       },
+      {
+        path: `${routerURLConstant.chat}`,
+        loadComponent: () => import('../pages/base/chat/chat.component').then(m => m.ChatComponent),
+      },
+
+
     ],
 
   },

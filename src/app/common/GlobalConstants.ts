@@ -48,6 +48,8 @@ export const routerURLConstant = {
     login: 'login',
     generatePassword: 'generate-password',
     user: 'user',
-    dashboard: 'dashboard'
+    dashboard: 'dashboard',
+    chat: 'chat'
+
 
 }
