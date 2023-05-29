@@ -3,12 +3,13 @@ import { RouterModule } from '@angular/router';
 import { SocketConstant } from '@common/GlobalConstants';
 import { WebsocketService } from '@service/web-socket.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [RouterModule]
+  imports: [RouterModule,]
 })
 export class AppComponent {
   title = 'UMS';
