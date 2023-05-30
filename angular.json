@@ -22,7 +22,7 @@
           "options": {
             "allowedCommonJsDependencies": [
               "rxjs"
-           ],
+            ],
             "outputPath": "dist/UMS",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -126,7 +126,8 @@
   "cli": {
     "analytics": false,
     "schematicCollections": [
-      "@angular-eslint/schematics"
+      "@angular-eslint/schematics",
+      "@ngrx/schematics"
     ]
   },
   "schematics": {

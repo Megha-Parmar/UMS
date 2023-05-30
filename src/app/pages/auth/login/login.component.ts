@@ -8,8 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from '@service/auth.service';
 import { UserService } from '@service/user.service';
+import { LoginActions } from 'src/app/store/actions/login.actions';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   @ViewChild('loginForm') sampleForm: NgForm;
   response: any;
-  constructor(public authService: AuthService, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
+  constructor(private readonly store: Store, public authService: AuthService, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
 
 
@@ -57,7 +59,7 @@ export class LoginComponent implements OnInit {
 
           if (response?.body.user) {
             this.authService.saveUserDetail(response.body);
-
+            this.store.dispatch(LoginActions.loginSuccess({ user: response.body }));
             this.router.navigate(['']); //redirected to dashboard
             this._snackBar.open('Login successfully.', 'close', {
               duration: 3000,
@@ -76,6 +78,8 @@ export class LoginComponent implements OnInit {
 
         // });
       }, err => {
+
+        this.store.dispatch(LoginActions.loginFailure(err));
         this._snackBar.open(err.error.message, 'close', {
           duration: 3000,
         });
