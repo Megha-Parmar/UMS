@@ -12,61 +12,39 @@ import { MustMatchDirective } from '@helper/must-match.directive';
 import { AuthService } from '@service/auth.service';
 import { UserService } from '@service/user.service';
 
-
 @Component({
-  selector: 'app-generate-password',
-  templateUrl: './generate-password.component.html',
-  styleUrls: ['./generate-password.component.scss'],
+  selector: 'app-forget-password',
   standalone: true,
-  imports: [FormsModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule]
+  imports: [FormsModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule],
+  templateUrl: './forget-password.component.html',
+  styleUrls: ['./forget-password.component.scss']
 })
-export class GeneratePasswordComponent {
+export class ForgetPasswordComponent {
 
   public userData = {
-    cPassword: '',//'1997meghal@gmail.com',
-    password: '',//'Test@123'
+    email: '',//'1997meghal@gmail.com',
   };
   hideP = true;
   hideC = true;
 
-  @ViewChild('newPasswordForm') sampleForm: NgForm;
-  PageTitle: string;//= "Reset Password" || "Generate New Password";
+  @ViewChild('resetPasswordForm') sampleForm: NgForm;
 
   constructor(public authService: AuthService, private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
-  ngOnInit(): void {
-    console.log("this.router", this.router);
-
-    this.PageTitle = this.router.url.includes(routerURLConstant.resetPassword) ? "Reset Password" : "Generate New Password"
-    // this.route.queryParams.subscribe(params => {
-  }
+  ngOnInit(): void { }
 
   // submitLogin(form: NgForm) {
-  submitGeneratePassword() {
+  submitResetPassword() {
 
 
     if (this.sampleForm.valid) {
 
-      // this.userService.encryptString(form.form.value.password).then((value) => {
-      let id;
-      this.route.queryParams.subscribe(params => {
-        id = params['id']
-
-
-      });
-
-      const payload = {
-        id: id.replace(/ /g, '+'), // It' replace '+' to '' sign in url
-        password: this.sampleForm.form.value.password
-      }
-      this.authService.setNewPassword(payload).subscribe(response => {
+      this.authService.forgetPassword(this.sampleForm.value).subscribe(response => {
         if (response.success) {
           this.router.navigate([`${routerURLConstant.auth}/${routerURLConstant.login}`])
           this._snackBar.open('Password updated successfully.', 'close', {
             duration: 3000,
           });
-
         }
-
         // });
       }, err => {
         this._snackBar.open(err.error.message, 'close', {

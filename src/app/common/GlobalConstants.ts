@@ -6,7 +6,10 @@ export const GlobalConstants = {
     apiUrls: {
         auth: {
             login: '/api/auth/login',
-            setNewPassword: '/api/auth/generate-password'
+            setNewPassword: '/api/auth/generate-password',
+            forgetPassword: '/api/auth/forget-password',
+            sSOLogin: '/api/auth/sso-login'
+
         },
         user: {
             getUserList: '/api/user/',
@@ -56,6 +59,8 @@ export const routerURLConstant = {
     auth: 'auth',
     login: 'login',
     generatePassword: 'generate-password',
+    forgetPassword: 'forget-password',
+    resetPassword: 'reset-password',
     user: 'user',
     dashboard: 'dashboard',
     chat: 'chat'
