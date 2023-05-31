@@ -48,6 +48,11 @@ export class AuthService {
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.patch<any>(`${GlobalConstants.apiUrls.auth.setNewPassword}`, data, { headers: httpHeaders });
   }
+  forgetPassword(data): Observable<any> {
+    const httpHeaders = new HttpHeaders();
+    httpHeaders.set('Content-Type', 'application/json');
+    return this.http.patch<any>(`${GlobalConstants.apiUrls.auth.forgetPassword}`, data, { headers: httpHeaders });
+  }
 
   ngOnDestroy() {
     console.log('Service destroy')
