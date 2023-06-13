@@ -5,13 +5,17 @@ export const GlobalConstants = {
     apiUrls: {
         auth: {
             login: '/api/auth/login',
-            setNewPassword: '/api/auth/generate-password'
+            setNewPassword: '/api/auth/generate-password',
+            forgetPassword: '/api/auth/forget-password',
+            sSOLogin: '/api/auth/sso-login'
+
         },
         user: {
             getUserList: '/api/user/',
-            getUserDetail: '/api/user',
+            getUserDetail: '/api/user/',
             getRole: '/api/role',
             saveUser: '/api/user',
+            saveSSOUser: '/api/user/sso',
             updateUser: '/api/user/',
             deleteUser: '/api/user/',
         }
@@ -47,7 +51,32 @@ export const routerURLConstant = {
     auth: 'auth',
     login: 'login',
     generatePassword: 'generate-password',
+    forgetPassword: 'forget-password',
+    resetPassword: 'reset-password',
     user: 'user',
     dashboard: 'dashboard'
 
+}
+
+
+export enum UserLoginType {
+    Register = 'register',
+    SSO = 'sso',
+    Both = 'both'
+}
+
+export enum SSOLoginType {
+    FB = 'facebook',
+    GOOGLE = 'google',
+}
+
+export const ssoMockUser = {
+    dob: "1996-06-11T18:30:00.000Z",
+    email: "ssomockuser@yopmail.com",
+    firstName: "megha",
+    lastName: "Patel",
+    phoneNumber: "3436547686",
+    // role: "642fc2dfdc4869956c3b5a97",
+    userName: "richP",
+    status: "ACTIVE"
 }

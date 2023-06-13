@@ -23,6 +23,16 @@ export const AuthRoute: Routes = [
         loadComponent: () => import('../pages/auth/generate-password/generate-password.component').then(m => m.GeneratePasswordComponent),
         // data: {returnUrl: window.location.pathname}
       },
+      {
+        path: `${routerURLConstant.forgetPassword}`,
+        loadComponent: () => import('../pages/auth/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent),
+        // data: {returnUrl: window.location.pathname}
+      },
+      {
+        path: `${routerURLConstant.resetPassword}`,
+        loadComponent: () => import('../pages/auth/generate-password/generate-password.component').then(m => m.GeneratePasswordComponent),
+        // data: {returnUrl: window.location.pathname}
+      },
     ]
   },
 ]
