@@ -20,7 +20,7 @@
                     <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </a>
+                </a>
                     <mat-error *ngIf="password?.errors?.required">Password is required</mat-error>
                 </mat-form-field>
             </div>
@@ -31,8 +31,5 @@
             <button mat-raised-button color="primary" (click)="submitLogin()">Login</button>
         </div>
     </div>
-    <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
-     -->
-    <br />
-    <asl-google-signin-button type='icon' size='medium'>sign in with google</asl-google-signin-button>
+
 </div>

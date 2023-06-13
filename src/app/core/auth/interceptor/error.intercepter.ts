@@ -32,14 +32,14 @@ export const ErrorInterceptor: HttpInterceptorFn = (request: HttpRequest<unknown
             }
             // toasterService.displaySnackBar(err.error?.message, messageType.error);
 
-            const error = err;//.error || err;
+            const error = err.error || err;
 
-            // return throwError(() => {
+            return throwError(() => {
 
-            // return error;
+                return error;
 
-            // });
-            return throwError(error);
+            });
+
         })
 
     );

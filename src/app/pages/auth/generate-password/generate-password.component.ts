@@ -30,13 +30,11 @@ export class GeneratePasswordComponent {
   hideC = true;
 
   @ViewChild('newPasswordForm') sampleForm: NgForm;
-  PageTitle: string;//= "Reset Password" || "Generate New Password";
 
   constructor(public authService: AuthService, private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
-    console.log("this.router", this.router);
 
-    this.PageTitle = this.router.url.includes(routerURLConstant.resetPassword) ? "Reset Password" : "Generate New Password"
+
     // this.route.queryParams.subscribe(params => {
   }
 

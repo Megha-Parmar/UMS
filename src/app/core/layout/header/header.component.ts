@@ -4,9 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { routerURLConstant } from '@common/GlobalConstants';
-import { Store } from '@ngrx/store';
 import { LocalStorageService } from '@service/local-storage.service';
-import { LoginActions } from 'src/app/store/actions/login.actions';
 
 
 @Component({
@@ -22,15 +20,14 @@ import { LoginActions } from 'src/app/store/actions/login.actions';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private readonly store: Store, private localStorageService: LocalStorageService, private router: Router) { }
+  constructor(private localStorageService: LocalStorageService, private router: Router) { }
 
   ngOnInit(): void {
 
   }
 
   logout() {
-    this.localStorageService.clear();
-    this.store.dispatch(LoginActions.logoutSuccess())
+    this.localStorageService.clear()
     this.router.navigate([`${routerURLConstant.auth}/${routerURLConstant.login}`]);
   }
 }

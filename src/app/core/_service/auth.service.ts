@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIResponse, User } from '@modal/modal';
 import { Observable } from 'rxjs';
 import { GlobalConstants } from 'src/app/common/GlobalConstants';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
@@ -35,23 +34,10 @@ export class AuthService {
     return this.http.post<any>(`${GlobalConstants.apiUrls.auth.login}`, data);
   }
 
-  ssoLoginSave(data): Observable<APIResponse<User>> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set('Content-Type', GlobalConstants.httpHeader.applicationJson);
-    // return this.http.post<APIResponse<User>>(`${GlobalConstants.apiUrls.user.saveSSOUser}`, data, { headers: httpHeaders });
-
-    return this.http.post<APIResponse<User>>(`${GlobalConstants.apiUrls.auth.sSOLogin}`, data, { headers: httpHeaders });
-  }
-
   setNewPassword(data: { id: string; password: string }): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.patch<any>(`${GlobalConstants.apiUrls.auth.setNewPassword}`, data, { headers: httpHeaders });
-  }
-  forgetPassword(data): Observable<any> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set('Content-Type', 'application/json');
-    return this.http.patch<any>(`${GlobalConstants.apiUrls.auth.forgetPassword}`, data, { headers: httpHeaders });
   }
 
   ngOnDestroy() {
