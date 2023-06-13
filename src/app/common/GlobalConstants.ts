@@ -1,3 +1,4 @@
+export const SOCKET_ENDPOINT = 'localhost:3000';
 export const GlobalConstants = {
     httpHeader: {
         applicationJson: 'application/json'
@@ -9,11 +10,14 @@ export const GlobalConstants = {
         },
         user: {
             getUserList: '/api/user/',
-            getUserDetail: '/api/user',
+            getUserDetail: '/api/user/',
             getRole: '/api/role',
             saveUser: '/api/user',
             updateUser: '/api/user/',
             deleteUser: '/api/user/',
+        },
+        chat: {
+            getUserList: '/api/chat/',
         }
     },
     appRoutePaths: {
@@ -36,6 +40,11 @@ export const SecretConstant = {
 export const QueryParamsConstant = {
     page: 'page',
     limit: 'limit',
+}
+
+export const SocketConstant = {
+    msgToServer: 'msgToServer',
+    msgToClient: 'msgToClient',
 }
 
 export const FinalConstant = {

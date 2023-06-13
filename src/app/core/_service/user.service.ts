@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GlobalConstants, QueryParamsConstant } from '@common/GlobalConstants';
-import { APIResponse, ListResponse, User } from '@modal/modal';
+import { APIResponse, ListRespons, ListResponse, User } from '@modal/modal';
 import { Observable } from 'rxjs';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
 
@@ -52,4 +52,8 @@ export class UserService {
     return httpHeaders;
   }
 
+  getUserList(data: { page: number; limit: number; searchKeyword: string; }): Observable<APIResponse<ListRespons>> {
+    let url = `${GlobalConstants.apiUrls.user.getUserList}?${QueryParamsConstant.page}=${data.page}&${QueryParamsConstant.limit}=${data.limit}`
+    return this.http.get<APIResponse<ListRespons>>(url);
+  }
 }

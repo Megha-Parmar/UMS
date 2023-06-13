@@ -3,120 +3,70 @@
         <header>
             <input type="text" placeholder="search">
         </header>
-        <ul>
-            <li>
+        <cdk-virtual-scroll-viewport [itemSize]="8" class="example-viewport">
+            <ul style="cursor: pointer;">
+                <!-- {{userList.length}} -->
+                <li *cdkVirtualFor="let item of userList;
+            let index = index;
+       " (click)="selectChatPerson(item)">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                    <div>
+                        <h2>{{item.firstName}} {{item.lastName}} {{item._id === loggedInUser._id ? "(Me)":''}}</h2>
+                        <!-- <h3>
+                            <span class="status orange"></span>
+                            offline
+                        </h3> -->
+                    </div>
+                </li>
+            </ul>
+        </cdk-virtual-scroll-viewport>
+        <!--  <ul>
+            <li *ngFor="let item of userList;
+                let index = index;
+                let count = count;
+                let first = first;
+                let last = last;
+                let even = even;
+                let odd = odd;">
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
                 <div>
-                    <h2>Prénom Nom</h2>
+                    <h2>{{item.firstName}} {{item.lastName}}</h2>
                     <h3>
                         <span class="status orange"></span>
                         offline
                     </h3>
                 </div>
             </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_02.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_03.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status orange"></span>
-                        offline
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_04.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_05.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status orange"></span>
-                        offline
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_06.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_07.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_08.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_09.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status green"></span>
-                        online
-                    </h3>
-                </div>
-            </li>
-            <li>
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_10.jpg" alt="">
-                <div>
-                    <h2>Prénom Nom</h2>
-                    <h3>
-                        <span class="status orange"></span>
-                        offline
-                    </h3>
-                </div>
-            </li>
-        </ul>
+            
+        </ul> -->
     </aside>
-    <main>
+    <main *ngIf="selectedChat">
         <header>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
             <div>
-                <h2>Chat with Vincent Porter</h2>
+                <h2>{{selectedChat?.firstName}} {{selectedChat?.lastName}}</h2>
                 <h3>already 1902 messages</h3>
             </div>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_star.png" alt="">
         </header>
-        <ul id="chat">
-            <li class="you">
+        <ul id="chat" class="chat_ul">
+            <li class="{{  item.senderId !== item.receiverId &&  item.senderId === selectedChat._id ?'you':'me'}}"
+                *ngFor="let item of chats">
+                <div class="entete">
+                    <span
+                        class="status {{ item.senderId !== item.receiverId && item.senderId === selectedChat._id?'green':'blue'}}"></span>
+
+                    <h2>{{item.senderId !== item.receiverId && item.senderId=== selectedChat._id
+                        ?selectedChat?.firstName:'me'}}</h2>
+                    <h3>{{item?.createdAt|date :'short'}}</h3>
+                </div>
+                <div class="triangle"></div>
+                <div class="message">
+                    {{item.message}}
+                </div>
+            </li>
+
+            <!-- <li class="you">
                 <div class="entete">
                     <span class="status green"></span>
                     <h2>Vincent</h2>
@@ -138,56 +88,14 @@
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                 </div>
             </li>
-            <li class="me">
-                <div class="entete">
-                    <h3>10:12AM, Today</h3>
-                    <h2>Vincent</h2>
-                    <span class="status blue"></span>
-                </div>
-                <div class="triangle"></div>
-                <div class="message">
-                    OK
-                </div>
-            </li>
-            <li class="you">
-                <div class="entete">
-                    <span class="status green"></span>
-                    <h2>Vincent</h2>
-                    <h3>10:12AM, Today</h3>
-                </div>
-                <div class="triangle"></div>
-                <div class="message">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                </div>
-            </li>
-            <li class="me">
-                <div class="entete">
-                    <h3>10:12AM, Today</h3>
-                    <h2>Vincent</h2>
-                    <span class="status blue"></span>
-                </div>
-                <div class="triangle"></div>
-                <div class="message">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                </div>
-            </li>
-            <li class="me">
-                <div class="entete">
-                    <h3>10:12AM, Today</h3>
-                    <h2>Vincent</h2>
-                    <span class="status blue"></span>
-                </div>
-                <div class="triangle"></div>
-                <div class="message">
-                    OK
-                </div>
-            </li>
+           -->
         </ul>
         <footer>
-            <textarea placeholder="Type your message"></textarea>
+            <textarea placeholder="Type your message" [(ngModel)]="message"></textarea>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt="">
-            <a href="#">Send</a>
+            <a (click)="send(message)" style="cursor: pointer;"
+                [ngStyle]="message.trim().length === 0 && {'pointer-events':'none'} ">Send</a>
         </footer>
     </main>
 </div>

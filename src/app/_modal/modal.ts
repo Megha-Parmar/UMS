@@ -11,6 +11,15 @@ export interface User {
     status: string,
     role: Role
 }
+export interface Chat {
+    _id: number;
+    message: string;
+    receiverId: number;
+    senderId: number;
+    type: string,
+    createdAt: Date
+}
+
 export interface Role {
     _id: number;
     name: string;
@@ -19,6 +28,17 @@ export interface Role {
 
 export interface ListResponse {
     users: User | User[];
+    currentPage: string;
+    totalData: number;
+}
+
+export interface ChatListResponse {
+    chats: Chat[];
+    currentPage: string;
+    totalData: number;
+}
+export interface ListRespons {
+    users: User[];
     currentPage: string;
     totalData: number;
 }

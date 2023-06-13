@@ -91,7 +91,6 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.activatedRoute.data.subscribe((response: any) => {
 
       this.loadingSubject = new BehaviorSubject<boolean>(false);
-      console.log("respolve", response);
       if (response.userResolver.success) {
 
 
@@ -385,7 +384,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.showLoader$ = of(false);
       this.changeDetectorRef.detectChanges();
     }, (err) => {
-      console.log("err", err())
+      console.log("err", err);
     });
   }
 
