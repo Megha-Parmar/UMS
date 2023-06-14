@@ -38,6 +38,7 @@ export class ChatComponent {
 
     this.appService.getMessageToServer().subscribe((data: any) => {
       console.log(data);
+      // if (data.receiverId === this.loggedInUser._id && data.senderId === this.selectedChat._id)
       this.chats.push(data);
     })
     this.getUserData();
