@@ -4,6 +4,7 @@ export interface User {
     userName: string,
     firstName: string,
     lastName: string,
+    profileImage: string,
     uniqueId: string,
     phoneNumber: string
     email: string,
