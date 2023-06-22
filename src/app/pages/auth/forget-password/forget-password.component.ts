@@ -9,13 +9,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routerURLConstant } from '@common/GlobalConstants';
 import { MustMatchDirective } from '@helper/must-match.directive';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@service/auth.service';
 import { UserService } from '@service/user.service';
 
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [FormsModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule],
+  imports: [FormsModule, TranslateModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule],
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.scss']
 })

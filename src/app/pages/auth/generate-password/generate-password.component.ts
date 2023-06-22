@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { routerURLConstant } from '@common/GlobalConstants';
 import { MustMatchDirective } from '@helper/must-match.directive';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@service/auth.service';
 import { UserService } from '@service/user.service';
 
@@ -18,7 +19,7 @@ import { UserService } from '@service/user.service';
   templateUrl: './generate-password.component.html',
   styleUrls: ['./generate-password.component.scss'],
   standalone: true,
-  imports: [FormsModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule]
+  imports: [FormsModule, TranslateModule, CommonModule, MustMatchDirective, MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule]
 })
 export class GeneratePasswordComponent {
 
@@ -30,13 +31,12 @@ export class GeneratePasswordComponent {
   hideC = true;
 
   @ViewChild('newPasswordForm') sampleForm: NgForm;
-  PageTitle: string;//= "Reset Password" || "Generate New Password";
+  pageTitle: string;//= "Reset Password" || "Generate New Password";
+
 
   constructor(public authService: AuthService, private route: ActivatedRoute, public _snackBar: MatSnackBar, public userService: UserService, private router: Router) { }
   ngOnInit(): void {
-    console.log("this.router", this.router);
-
-    this.PageTitle = this.router.url.includes(routerURLConstant.resetPassword) ? "Reset Password" : "Generate New Password"
+    this.pageTitle = this.router.url.includes(routerURLConstant.resetPassword) ? "Reset Password" : "Generate New Password";
     // this.route.queryParams.subscribe(params => {
   }
 

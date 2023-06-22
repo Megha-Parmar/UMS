@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     MatGridListModule,
+    TranslateModule,
     RouterModule,//.forChild(AuthRoute)
     CommonModule
   ]

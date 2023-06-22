@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ssoMockUser } from '@common/GlobalConstants';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@service/auth.service';
 import { EncryptDecryptService } from '@service/encrypt-decrypt.service';
 import { UserService } from '@service/user.service';
@@ -23,7 +24,7 @@ import { LoginActions } from 'src/app/store/actions/login.actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatInputModule, FormsModule, MatButtonModule, SocialLoginModule, GoogleSigninButtonModule],
+  imports: [CommonModule, TranslateModule, MatIconModule, MatInputModule, FormsModule, MatButtonModule, SocialLoginModule, GoogleSigninButtonModule],
   // providers: [UserService, HttpClientModule,]
 
   providers: [

@@ -32,6 +32,8 @@
       "@guard/*":["src/app/core/auth/*"],
       "@pages/*":["src/app/pages/*"],
       "@layout/*":["src/app/core/layout/*"],
+      // "@translate/*":["src/assets/i18n/*"],
+
     }
   },
   "angularCompilerOptions": {

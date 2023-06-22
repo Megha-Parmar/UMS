@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { SOCKET_ENDPOINT } from '@common/GlobalConstants';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { TranslateModule } from '@ngx-translate/core';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { AppComponent } from './app/app.component';
 import { authInterceptor } from './app/core/auth/interceptor/auth.intercepter';
@@ -32,6 +33,7 @@ bootstrapApplication(AppComponent, {
     provideStore({ login: loginReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     importProvidersFrom(SocketIoModule.forRoot(config)),
+    importProvidersFrom(TranslateModule.forRoot({})),
   ],
 
 })

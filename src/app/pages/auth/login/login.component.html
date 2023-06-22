@@ -1,38 +1,44 @@
 <div class="example-container">
     <div class="main-header">
-        <h1>Login</h1>
+        <h1>{{'LOGIN.MAIN_HEADER' | translate}}</h1>
     </div>
     <div>
         <form #loginForm="ngForm" name="loginForm">
             <div class="form-group">
                 <mat-form-field appearance="fill" class="w-100">
-                    <mat-label>Enter your email</mat-label>
-                    <input matInput placeholder="pat@example.com" autocomplete="none" class="form-control"
-                        [(ngModel)]="userData.email" name="email" required email #email="ngModel">
-                    <mat-error *ngIf="email?.errors?.required">Email id is required</mat-error>
+                    <mat-label>{{'LOGIN.LABEL_FIELDS.EMAIL' |
+                        translate}}</mat-label>
+                    <input matInput placeholder="{{'LOGIN.PLACE_HOLDERS.EMAIL' |
+                    translate}}" autocomplete="none" class="form-control" [(ngModel)]="userData.email" name="email"
+                        required email #email="ngModel">
+                    <mat-error *ngIf="email?.errors?.required">{{'LOGIN.INPUT_FIELD_VALIDATION.EMAIL.REQUIRED' |
+                        translate}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="form-group">
                 <mat-form-field appearance="fill" class="w-100">
-                    <mat-label>Enter your password</mat-label>
+                    <mat-label>{{'LOGIN.LABEL_FIELDS.PASSWORD' |
+                        translate}}</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" autocomplete="none"
                         [(ngModel)]="userData.password" name="password" required password #password="ngModel">
                     <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </a>
-                    <mat-error *ngIf="password?.errors?.required">Password is required</mat-error>
+                    <mat-error *ngIf="password?.errors?.required">{{'LOGIN.INPUT_FIELD_VALIDATION.PASSWORD.REQUIRED' |
+                        translate}}</mat-error>
                 </mat-form-field>
             </div>
         </form>
 
         <div class="button-row">
 
-            <button mat-raised-button color="primary" (click)="submitLogin()">Login</button>
+            <button mat-raised-button color="primary" (click)="submitLogin()"> {{'LOGIN.BUTTON.LOGIN' |
+                translate}}</button>
         </div>
     </div>
     <!-- <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
      -->
     <br />
-    <asl-google-signin-button type='icon' size='medium'>sign in with google</asl-google-signin-button>
+    <!-- <asl-google-signin-button type='icon' size='medium'>sign in with google</asl-google-signin-button> -->
 </div>
