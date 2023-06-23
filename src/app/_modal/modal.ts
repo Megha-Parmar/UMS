@@ -49,4 +49,8 @@ export interface APIResponse<Modal> {
     success: boolean;
     statusCode: number;
     message: string
-} 
+}
+export interface ILocale {
+    lang: string;
+    data: {};
+}

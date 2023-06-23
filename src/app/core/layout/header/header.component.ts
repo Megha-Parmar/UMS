@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { routerURLConstant } from '@common/GlobalConstants';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { LocalStorageService } from '@service/local-storage.service';
 import { LoginActions } from 'src/app/store/actions/login.actions';
 
@@ -16,7 +18,8 @@ import { LoginActions } from 'src/app/store/actions/login.actions';
   standalone: true,
   imports: [CommonModule,
     MatToolbarModule,
-    MatIconModule
+    MatTooltipModule,
+    MatIconModule, TranslateModule
   ],
   // exportAs:[`HeaderComponent`]
 })

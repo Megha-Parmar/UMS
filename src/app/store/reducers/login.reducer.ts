@@ -19,7 +19,8 @@ export const initialState: User = {
   email: '',
   dob: undefined,
   status: '',
-  role: undefined
+  role: undefined,
+  profileImage: ''
 };
 
 export const loginReducer = createReducer(

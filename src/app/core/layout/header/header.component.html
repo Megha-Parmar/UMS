@@ -1,10 +1,10 @@
 <mat-toolbar>
 
     <img src="assets/user-manage-logo.png" class="menu-user-icon">
-    <span>User Management System</span>
+    <span>{{'HEADER.MAIN_HEADER'|translate}}</span>
     <span class="example-spacer"></span>
 
-    <button mat-icon-button matTooltip="Logout" (click)="logout()">
+    <button mat-icon-button matTooltip="{{'HEADER.BUTTON.LOGOUT_TOOLTIP_TEXT'|translate}}" (click)="logout()">
         <mat-icon class="update_status">power_settings_new</mat-icon>
     </button>
 

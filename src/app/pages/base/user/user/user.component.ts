@@ -20,6 +20,7 @@ import { GlobalConstants } from '@common/GlobalConstants';
 import { DD_MM_YYYY_Format } from '@modal/date.model';
 import { User } from '@modal/modal';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '@service/auth.service';
 import { EncryptDecryptService } from '@service/encrypt-decrypt.service';
 import { UserService } from '@service/user.service';
@@ -31,7 +32,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, MatDialogModule,
+  imports: [CommonModule, MatCardModule, MatTableModule, MatIconModule, MatDialogModule, TranslateModule,
     MatSortModule, MatButtonModule, MatMenuModule, MatProgressSpinnerModule, MatNativeDateModule, MatTooltipModule,
     RouterModule, MatPaginatorModule, MatInputModule, ReactiveFormsModule, MatDatepickerModule],
   providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },

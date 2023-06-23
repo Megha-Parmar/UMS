@@ -9,12 +9,13 @@
             align-items: center;">
 
                 <div>
-                    <mat-card-title>Users</mat-card-title>
-                    <mat-card-subtitle>Employees</mat-card-subtitle>
+                    <mat-card-title>{{'USER.MAIN_HEADER'|translate}}</mat-card-title>
+                    <mat-card-subtitle>{{'USER.MIDDLE_HEADER'|translate}}</mat-card-subtitle>
                 </div>
                 <div class="button-row" *ngIf="loggedInUser?.role?.name==='ADMIN'">
 
-                    <button mat-raised-button (click)="openModal(UserModel)" color="primary">Add</button>
+                    <button mat-raised-button (click)="openModal(UserModel)"
+                        color="primary">{{'USER.LIST.BUTTON.ADD_USER'|translate}}</button>
                 </div>
             </div>
         </mat-card-header>
@@ -26,12 +27,13 @@
                         matSortActive="id" matSortDirection="asc" matSortDisableClear>
 
                         <ng-container matColumnDef="srNo">
-                            <mat-header-cell *matHeaderCellDef>Sr.No
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.SR_NO'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user; let i = index;"> {{(i+1) + (pageIndex * 10)}} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="profileImage">
-                            <mat-header-cell *matHeaderCellDef>Profile Photo
+
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.PROFILE_PHOTO'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user; let i = index;">
 
@@ -41,41 +43,44 @@
                         </ng-container>
                         <ng-container matColumnDef="uniqueId">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>
-                                User ID</mat-header-cell>
+                                {{'USER.LIST.TABLE.COLOUM.USER_ID'|translate}}</mat-header-cell>
                             <mat-cell *matCellDef="let user"><b>{{ user?.uniqueId }}</b> </mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="name">
-                            <mat-header-cell *matHeaderCellDef>Name
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.NAME'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user">{{ user?.firstName + ' ' + user?.lastName }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="role">
-                            <mat-header-cell *matHeaderCellDef>Role
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.ROLE'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user">{{ user?.role?.value}}</mat-cell>
 
                         </ng-container>
 
                         <ng-container matColumnDef="phoneNumber">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'USER.LIST.TABLE.COLOUM.PHONE_NUMBER'|translate}}</mat-header-cell>
                             <mat-cell *matCellDef="let user">{{ user?.phoneNumber }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="email">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'USER.LIST.TABLE.COLOUM.EMAIL'|translate}}</mat-header-cell>
                             <mat-cell *matCellDef="let user">{{ user?.email }}</mat-cell>
                         </ng-container>
 
                         <ng-container matColumnDef="dob">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>DOB</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef
+                                mat-sort-header>{{'USER.LIST.TABLE.COLOUM.DOB'|translate}}</mat-header-cell>
                             <mat-cell *matCellDef="let user">{{ user?.dob |date:'dd/MM/yyyy' }}</mat-cell>
                         </ng-container>
 
 
                         <ng-container matColumnDef="status">
-                            <mat-header-cell *matHeaderCellDef>Status
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.STATUS'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user">
                                 <span *ngIf="user?.status === 'ACTIVE'"
@@ -86,24 +91,25 @@
                         </ng-container>
 
                         <ng-container matColumnDef="action">
-                            <mat-header-cell *matHeaderCellDef>Actions
+                            <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.ACTIONS'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user">
 
                                 <button *ngIf="loggedInUser?.role?.name==='ADMIN'" mat-icon-button color="warn"
-                                    matTooltip="Delete User" type="button"
-                                    (click)="deleteUser(user, DeleteModel, 'deleted')">
+                                    matTooltip="{{'USER.LIST.TABLE.COLOUM.TOOL_TIPS.DELETE_USER'|translate}}"
+                                    type="button" (click)="deleteUser(user, DeleteModel, 'deleted')">
                                     <mat-icon>delete</mat-icon>
                                 </button>
 
-                                <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="More Actions">
+                                <button mat-icon-button [matMenuTriggerFor]="menu"
+                                    matTooltip="{{'USER.LIST.TABLE.COLOUM.TOOL_TIPS.MORE_ACTION_USER'|translate}}">
                                     <mat-icon>more_vert</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
 
                                     <button mat-menu-item (click)="editDetails(user?._id, UserModel)">
                                         <mat-icon class="edit_icon">create</mat-icon>
-                                        <span>Edit Info</span>
+                                        <span>{{'USER.LIST.TABLE.COLOUM.TOOL_TIPS.EDIT_INFO_TEXT'|translate}}</span>
                                     </button>
 
                                 </mat-menu>
@@ -116,10 +122,11 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                     </mat-table>
 
-                    <div class="mat-table__message" *ngIf="loadingSubject | async">Please wait ...</div>
+                    <div class="mat-table__message" *ngIf="loadingSubject | async">
+                        {{'USER.LIST.TABLE.LOADING_MESSAGE'|translate}}</div>
                     <div class="mat-table__message"
                         *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && (loadingSubject | async) === false">
-                        No data found</div>
+                        {{'USER.LIST.TABLE.NO_RECORD_FOUND'|translate}}</div>
                 </div>
 
                 <div class="mat-table__bottom" *ngIf="loggedInUser?.role?.name==='ADMIN'">
@@ -176,7 +183,9 @@
                 </div>
                 <mat-error *ngIf="userForm.get('profileImage')?.touched">
                     <span *ngIf="userForm.get('profileImage')?.errors?.required">
-                        Profile image is required.
+
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.PROFILE_PHOTO.REQUIRED'|translate}}
+                        <!-- {{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.PROFILE_PHOTO'|translate}} -->
                     </span>
                 </mat-error>
             </div>
@@ -191,58 +200,70 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label class="label-title">First Name</label>
+                        <label
+                            class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.FIRST_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
                             <input type="text" class="form-control" autocomplete="off" formControlName="firstName"
-                                name="firstName" placeholder="First Name">
+                                name="firstName"
+                                placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.FIRST_NAME'|translate}}">
                         </div>
                         <mat-error *ngIf="userForm.get('firstName')?.errors && userForm.get('firstName')?.touched">
 
                             <span *ngIf="userForm.get('firstName')?.errors?.required">
-                                First name is required.
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.FIRST_NAME.REQUIRED'|translate}}
                             </span>
                             <span *ngIf="userForm.get('firstName')?.errors?.pattern">
-                                Invalid first name.
+
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.FIRST_NAME.PATTERN'|translate}}
                             </span>
                         </mat-error>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label class="label-title">Last Name</label>
+                        <label
+                            class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.LAST_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
                             <input type="text" class="form-control" autocomplete="off" formControlName="lastName"
-                                name="lastName" placeholder="Last Name">
+                                name="lastName"
+                                placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.LAST_NAME'|translate}}">
                         </div>
                         <mat-error *ngIf="userForm.get('lastName')?.errors && userForm.get('lastName')?.touched">
 
                             <span *ngIf="userForm.get('lastName')?.errors?.required">
-                                Last name is required.
+
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.LAST_NAME.REQUIRED'|translate}}
                             </span>
                             <span *ngIf="userForm.get('lastName')?.errors?.pattern">
-                                Invalid last name.
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.LAST_NAME.PATTERN'|translate}}
                             </span>
                         </mat-error>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="label-title">Email</label>
+
+                <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.EMAIL'|translate}}</label>
+
                 <div class="input-group mb-1">
                     <input type="text" class="form-control" autocomplete="off" formControlName="email" name="email"
-                        placeholder="Email">
+                        placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.EMAIL'|translate}}">
                 </div>
                 <mat-error *ngIf="userForm.get('email')?.errors && userForm.get('email')?.touched">
 
                     <span *ngIf="userForm.get('email')?.errors?.required">
-                        Email is required.
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.EMAIL.REQUIRED'|translate}}
+
                     </span>
                     <span *ngIf="userForm.get('email')?.errors?.pattern">
-                        Invalid email.
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.EMAIL.PATTERN'|translate}}
                     </span>
 
                     <span *ngIf="userForm.get('email')?.errors?.emailExist">
-                        Email address already exist.
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.EMAIL.ALREADY_EXIST'|translate}}
+
                     </span>
 
                 </mat-error>
@@ -251,21 +272,28 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
-                        <label class="label-title">User Name</label>
+
+                        <label
+                            class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.USER_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
 
                             <input type="text" class="form-control" autocomplete="off"
                                 [readonly]="loggedInUser?.role?.name==='USER'" formControlName="userName"
-                                name="userName" placeholder="User Name">
+                                name="userName"
+                                placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.USER_NAME'|translate}}">
                         </div>
                         <mat-error *ngIf="userForm.get('userName')?.errors && userForm.get('userName')?.touched">
 
                             <span *ngIf="userForm.get('userName')?.errors?.required">
-                                User name is required.
+                                <!-- User name is required. -->
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.USER_NAME.REQUIRED'|translate}}
                             </span>
 
                             <span *ngIf="userForm.get('userName')?.errors?.userIdExist">
-                                Username already exist.
+                                <!-- Username already exist. -->
+                                {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.USER_NAME.ALREADY_EXIST'|translate}}
+
                             </span>
                         </mat-error>
 
@@ -274,16 +302,22 @@
                 <div class="col-6">
                     <div class="form-group">
                         <div class="form-group">
-                            <label class="label-title">Phone Number</label>
+
+                            <label
+                                class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.PHONE_NUMBER'|translate}}</label>
+
                             <div class="input-group mb-1">
                                 <input type="text" class="form-control" autocomplete="off" formControlName="phoneNumber"
-                                    prefix="+91 " name="phoneNumber" mask="0000000000" placeholder="+91 999999999">
+                                    prefix="+91 " name="phoneNumber" mask="0000000000"
+                                    placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.PHONE_NUMBER'|translate}}">
                             </div>
                             <mat-error class="help-block"
                                 *ngIf="userForm.get('phoneNumber')?.errors && userForm.get('phoneNumber')?.touched">
 
                                 <span *ngIf="userForm.get('phoneNumber')?.errors?.required">
-                                    Phone number name is required.
+                                    <!-- Phone number name is required. -->
+                                    {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.PHONE_NUMBER.REQUIRED'|translate}}
+
                                 </span>
                             </mat-error>
                         </div>
@@ -292,10 +326,11 @@
             </div>
 
             <div class="form-group">
-                <label class="label-title">Role</label>
+
+                <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.ROLE'|translate}}</label>
                 <div class="input-group mb-1">
                     <select class="form-control" name="role" autocomplete="off" formControlName="role">
-                        <option value="null" disabled>Please select role.
+                        <option value="null" disabled>{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.ROLE'|translate}}
                         </option>
                         <option *ngFor="let role of roleList" [value]="role._id"> {{ role.value }} </option>
                     </select>
@@ -304,17 +339,20 @@
                 <mat-error *ngIf="userForm.get('role')?.errors && userForm.get('role')?.touched">
 
                     <span *ngIf="userForm.get('role')?.errors?.required">
-                        Please select role.
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.ROLE.REQUIRED'|translate}}
+
                     </span>
                 </mat-error>
             </div>
 
             <div class="form-group">
-                <label class="label-title">DOB</label>
+
+                <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.DOB'|translate}}</label>
                 <div class="input-group mb-1">
 
                     <input type="text" class="form-control" type="text" [matDatepicker]="picker" formControlName="dob"
-                        readonly placeholder="DOB">
+                        readonly placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.DOB'|translate}}">
+
                     <div class="date-icon">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -323,7 +361,8 @@
                 <mat-error *ngIf="userForm.get('dob')?.errors && userForm.get('dob')?.touched">
 
                     <span *ngIf="userForm.get('dob')?.errors?.required">
-                        Please select dob.
+                        {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.DOB.REQUIRED'|translate}}
+
                     </span>
                 </mat-error>
 
@@ -334,8 +373,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
         <button type="button" (click)="submit()" class="btn btn-primary">
-            <div *ngIf="!isInEditMode;else updateFlag">Save</div>
-            <ng-template #updateFlag>Update</ng-template>
+            <div *ngIf="!isInEditMode;else updateFlag">{{'USER.ADD_EDIT_USER_FORM.BUTTON.SAVE'|translate}}</div>
+            <ng-template #updateFlag>{{'USER.ADD_EDIT_USER_FORM.BUTTON.UPDATE'|translate}}</ng-template>
         </button>
     </div>
 </ng-template>
@@ -344,15 +383,17 @@
 <ng-template #DeleteModel let-c="close" let-d="dismiss">
     <h1 mat-dialog-title>
 
-        Confirm Action
+        {{'USER.DELETE_CONFIRM_POPUP.MAIN_TITLE'|translate}}
     </h1>
 
     <div mat-dialog-content>
-        <p>Are you sure you want to delete this?</p>
+        <p>{{'USER.DELETE_CONFIRM_POPUP.MIDDLE_TEXT'|translate}}</p>
     </div>
 
     <div mat-dialog-actions>
-        <button mat-raised-button color="primary" tabindex="1" (click)="closeModel(true)">Yes</button>
-        <button mat-raised-button mat-dialog-close tabindex="-1" (click)="closeModel(false)">No</button>
+        <button mat-raised-button color="primary" tabindex="1"
+            (click)="closeModel(true)">{{'USER.DELETE_CONFIRM_POPUP.BUTTON.YES'|translate}}</button>
+        <button mat-raised-button mat-dialog-close tabindex="-1"
+            (click)="closeModel(false)">{{'USER.DELETE_CONFIRM_POPUP.BUTTON.NO'|translate}}</button>
     </div>
 </ng-template>
