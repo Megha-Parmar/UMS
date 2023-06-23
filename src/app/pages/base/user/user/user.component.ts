@@ -55,6 +55,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   public currentDate = new Date();
   public displayedColumns: string[] = [
     "srNo",
+    "profileImage",
     "uniqueId",
     "name",
     "email",
@@ -71,6 +72,8 @@ export class UserComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([])
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   user!: User;
+  imageUrl: string | ArrayBuffer;
+  fileName: any;
   constructor(private userService: UserService, public dialogRef: MatDialogRef<any>,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
@@ -167,6 +170,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dialogRef.close(flag);
   }
   openModal(content: any) {
+    this.fileName = '';
     this.initForm();
     this.isInEditMode = false;
 
@@ -183,6 +187,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.isInEditMode = true;
     this.user = this.users.find((x: { _id: any; }) => x._id == userId);
     this.setValue();
+    this.imageUrl = this.user.profileImage;
     this.modalService.open(content);
   }
 
@@ -263,6 +268,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   setValue() {
     this.userForm.setValue({
       // id: this.user._id,
+      profileImage: this.user.profileImage || '',
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       userName: this.user.userName,
@@ -277,10 +283,15 @@ export class UserComponent implements OnInit, AfterViewInit {
     // this.userForm.get('id').setValue(this.users._id);
   }
 
+  test(profileImageInput, fileInput) {
+    profileImageInput.focus();
+    fileInput.click();
+  }
 
   initForm() {
     this.userForm = this.formBuilder.group({
       // id: [""],
+      profileImage: ["", [Validators.required]],
       firstName: ["", [Validators.required, Validators.pattern("^[a-zA-Z]{1,200}$")]],
       lastName: ["", [Validators.required, Validators.pattern("^[a-zA-Z]{1,200}$")]],
       userName: ["", [Validators.required], this.validateUserIdNotTaken.bind(this)],
@@ -391,5 +402,32 @@ export class UserComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     // this.loadingSubject.next();
     this.loadingSubject.complete();
+  }
+  uploadFile(event) {
+    // this.userForm.get('profileImage').markAllAsTouched();
+    let reader = new FileReader(); // HTML5 FileReader API
+    let file = event.target.files[0];
+
+    if (file.size > 3 * 1024 * 1024) {
+      this._snackBar.open("Uploaded file size should be less 3MB", 'close', {
+        duration: 3000,
+      });
+      return;
+    }
+    if (event.target.files && event.target.files[0]) {
+      reader.readAsDataURL(file);
+      this.fileName = event.target.files[0].name;
+      // When file uploads set it to file formcontrol
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        this.userForm.patchValue({
+          profileImage: reader.result
+        });
+        // this.editFile = false;
+        // this.removeUpload = true;
+      }
+      // ChangeDetectorRef since file is loading outside the zone
+      // this.cd.markForCheck();
+    }
   }
 }
