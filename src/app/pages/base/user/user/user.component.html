@@ -32,6 +32,7 @@
                             <mat-cell *matCellDef="let user; let i = index;"> {{(i+1) + (pageIndex * 10)}} </mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="profileImage">
+
                             <mat-header-cell *matHeaderCellDef>{{'USER.LIST.TABLE.COLOUM.PROFILE_PHOTO'|translate}}
                             </mat-header-cell>
                             <mat-cell *matCellDef="let user; let i = index;">
@@ -182,6 +183,7 @@
                 </div>
                 <mat-error *ngIf="userForm.get('profileImage')?.touched">
                     <span *ngIf="userForm.get('profileImage')?.errors?.required">
+
                         {{'USER.ADD_EDIT_USER_FORM.INPUT_FIELD_VALIDATION.PROFILE_PHOTO.REQUIRED'|translate}}
                         <!-- {{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.PROFILE_PHOTO'|translate}} -->
                     </span>
@@ -200,6 +202,7 @@
                     <div class="form-group">
                         <label
                             class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.FIRST_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
                             <input type="text" class="form-control" autocomplete="off" formControlName="firstName"
                                 name="firstName"
@@ -221,6 +224,7 @@
                     <div class="form-group">
                         <label
                             class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.LAST_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
                             <input type="text" class="form-control" autocomplete="off" formControlName="lastName"
                                 name="lastName"
@@ -240,7 +244,9 @@
                 </div>
             </div>
             <div class="form-group">
+
                 <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.EMAIL'|translate}}</label>
+
                 <div class="input-group mb-1">
                     <input type="text" class="form-control" autocomplete="off" formControlName="email" name="email"
                         placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.EMAIL'|translate}}">
@@ -266,8 +272,10 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
+
                         <label
                             class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.USER_NAME'|translate}}</label>
+
                         <div class="input-group mb-1">
 
                             <input type="text" class="form-control" autocomplete="off"
@@ -294,8 +302,10 @@
                 <div class="col-6">
                     <div class="form-group">
                         <div class="form-group">
+
                             <label
                                 class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.PHONE_NUMBER'|translate}}</label>
+
                             <div class="input-group mb-1">
                                 <input type="text" class="form-control" autocomplete="off" formControlName="phoneNumber"
                                     prefix="+91 " name="phoneNumber" mask="0000000000"
@@ -316,6 +326,7 @@
             </div>
 
             <div class="form-group">
+
                 <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.ROLE'|translate}}</label>
                 <div class="input-group mb-1">
                     <select class="form-control" name="role" autocomplete="off" formControlName="role">
@@ -335,11 +346,13 @@
             </div>
 
             <div class="form-group">
+
                 <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.DOB'|translate}}</label>
                 <div class="input-group mb-1">
 
                     <input type="text" class="form-control" type="text" [matDatepicker]="picker" formControlName="dob"
                         readonly placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.DOB'|translate}}">
+
                     <div class="date-icon">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
