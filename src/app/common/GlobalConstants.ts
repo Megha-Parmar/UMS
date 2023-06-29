@@ -12,7 +12,7 @@ export const GlobalConstants = {
 
         },
         user: {
-            getUserList: '/api/user/',
+            getUserList: '/api/user',
             getUserDetail: '/api/user/',
             getRole: '/api/role',
             saveUser: '/api/user',

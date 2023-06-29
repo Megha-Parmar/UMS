@@ -116,21 +116,23 @@
 
                             </mat-cell>
                         </ng-container>
-
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <ng-container *ngIf="(showLoader$ | async) === false">
 
-                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                        </ng-container>
                     </mat-table>
 
-                    <div class="mat-table__message" *ngIf="loadingSubject | async">
-                        {{'USER.LIST.TABLE.LOADING_MESSAGE'|translate}}</div>
                     <div class="mat-table__message"
-                        *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && (loadingSubject | async) === false">
+                        *ngIf="(dataSource.data.length === 0 || dataSource.filteredData.length === 0) && (loadingSubject | async) === false && (showLoader$ | async) === false">
                         {{'USER.LIST.TABLE.NO_RECORD_FOUND'|translate}}</div>
                 </div>
 
                 <div class="mat-table__bottom" *ngIf="loggedInUser?.role?.name==='ADMIN'">
-                    <mat-spinner [diameter]="20" *ngIf="showLoader$ | async"></mat-spinner>
+                    <div class="mat-table__message" *ngIf="loadingSubject | async">
+                        {{'USER.LIST.TABLE.LOADING_MESSAGE'|translate}}
+                        <mat-spinner [diameter]="20" *ngIf="showLoader$ | async"></mat-spinner>
+                    </div>
                     <mat-paginator [hidePageSize]="true" [pageIndex]="pageIndex" [pageSize]="limit"
                         [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="false" [length]="totalData"
                         #matPaginator (page)="onPaginationChange($event)">
@@ -162,8 +164,8 @@
 <ng-template #UserModel let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title">{{ formTitle }}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
+        <button mat-icon-button class="close-button" (click)="d('Cross click')">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
         </button>
     </div>
     <div class="modal-body">
@@ -310,6 +312,15 @@
                                 <input type="text" class="form-control" autocomplete="off" formControlName="phoneNumber"
                                     prefix="+91 " name="phoneNumber" mask="0000000000"
                                     placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.PHONE_NUMBER'|translate}}">
+                                <!-- <ngx-intl-tel-input [cssClass]="'custom'" [preferredCountries]="preferredCountries"
+                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+                                    [searchCountryFlag]="true" [searchCountryField]="[
+                                      SearchCountryField.Iso2,
+                                      SearchCountryField.Name
+                                    ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India"
+                                    [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                    [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone">
+                                </ngx-intl-tel-input> -->
                             </div>
                             <mat-error class="help-block"
                                 *ngIf="userForm.get('phoneNumber')?.errors && userForm.get('phoneNumber')?.touched">
@@ -350,9 +361,9 @@
                 <label class="label-title">{{'USER.ADD_EDIT_USER_FORM.LABEL_FIELDS.DOB'|translate}}</label>
                 <div class="input-group mb-1">
 
-                    <input type="text" class="form-control" type="text" [matDatepicker]="picker" formControlName="dob"
-                        readonly placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.DOB'|translate}}">
-
+                    <input type="text" class="form-control" type="text" (focus)="picker.open()" [matDatepicker]="picker"
+                        formControlName="dob" [readonly]="true"
+                        placeholder="{{'USER.ADD_EDIT_USER_FORM.PLACE_HOLDERS.DOB'|translate}}">
                     <div class="date-icon">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -372,7 +383,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-        <button type="button" (click)="submit()" class="btn btn-primary">
+        <button type="button" (click)="submit()" class="btn btn-primary" [disabled]="showLoader$ | async">
             <div *ngIf="!isInEditMode;else updateFlag">{{'USER.ADD_EDIT_USER_FORM.BUTTON.SAVE'|translate}}</div>
             <ng-template #updateFlag>{{'USER.ADD_EDIT_USER_FORM.BUTTON.UPDATE'|translate}}</ng-template>
         </button>

@@ -75,3 +75,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-card {
   @include mat.elevation(8);
 }
+
+.mat-table__bottom {
+  text-align: -webkit-center;
+}

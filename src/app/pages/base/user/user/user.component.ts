@@ -52,7 +52,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   public pageIndex: number = 0;
   public formTitle = "";
   public pageSizeOptions: number[] = [5, 10, 25, 100];
-  public showLoader$: Observable<boolean> = of(false);
+  public showLoader$: Observable<boolean> = of(true);
   public currentDate = new Date();
   public displayedColumns: string[] = [
     "srNo",
@@ -68,8 +68,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   ];
   public loggedInUser: User;
   public roleList: any[];
-
-
   dataSource: MatTableDataSource<User> = new MatTableDataSource<User>([])
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
   user!: User;
@@ -95,6 +93,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.activatedRoute.data.subscribe((response: any) => {
 
       this.loadingSubject = new BehaviorSubject<boolean>(false);
+      this.showLoader$ = of(false);
       if (response.userResolver.success) {
 
 
@@ -115,6 +114,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.showLoader$ = of(false);
   }
 
   onPaginationChange(event: { pageIndex: number; pageSize: number; }) {
@@ -140,7 +140,8 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     this.dialogRef = this.dialog.open(DeleteModel, {
       maxWidth: "400px",
-      hasBackdrop: true
+      hasBackdrop: true,
+      disableClose: true
       // data: dialogData
     });
 
@@ -150,7 +151,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       if (dialogResult) {
         this.userService.deleteUserData(user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
-
+          this.showLoader$ = of(false);
 
           if (response.success) {
             this._snackBar.open('User deleted successfully', 'close', {
@@ -174,7 +175,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.fileName = '';
     this.initForm();
     this.isInEditMode = false;
-
+    this.imageUrl = '';
     this.formTitle = 'Add User',//this.translate.instant('USER.ADD_USER_LABEL');
       this.userForm.reset();
     this.modalService.open(content);
@@ -194,6 +195,8 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   submit() {
     if (this.userForm.valid) {
+      this.showLoader$ = of(true);
+
 
       this.userForm.patchValue({ status: 'ACTIVE' })
 
@@ -205,14 +208,18 @@ export class UserComponent implements OnInit, AfterViewInit {
 
         this.userService.updateUserData(obj, this.user._id).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
-
+          this.showLoader$ = of(false);
 
           if (response.success) {
 
             this.user = response.body;
+            this.getUserData();
+            // this.onPaginationChange({ pageIndex: this.page, pageSize: this.limit })
             this.modalService.dismissAll();
             if (this.loggedInUser._id == this.user._id) {
               this.authService.saveUserDetail(this.user);
+              this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.userName, this.user.userName);
+              this.encryptDecryptService.setEncryptedLocalStorage(GlobalConstants.user, this.user);
               this.loggedInUser = this.user;
 
             }
@@ -220,10 +227,11 @@ export class UserComponent implements OnInit, AfterViewInit {
               duration: 3000,
             });
             // setTimeout(() => {
-            this.getUserData();
+            // this.getUserData();
           }
 
         }, err => {
+          this.showLoader$ = of(false);
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
           });
@@ -231,14 +239,14 @@ export class UserComponent implements OnInit, AfterViewInit {
       } else {
 
         // obj['password'] = this.userService.encryptUsingAES256("Test@123");
-        obj['password'] = "Test@123";
+        // obj['password'] = "Test@123";
 
         this.userService.saveUserData(obj).subscribe(response => {
           this.loadingSubject = new BehaviorSubject<boolean>(false);
-
+          this.showLoader$ = of(false);
 
           if (response.success) {
-            // console.log("userdata", userData)
+            // console.log("user response", response)
             this.user = response.body;
             this.getUserData()
             this.modalService.dismissAll();
@@ -249,6 +257,7 @@ export class UserComponent implements OnInit, AfterViewInit {
           }
 
         }, (err) => {
+          this.showLoader$ = of(false);
           this._snackBar.open(err.error.message, 'close', {
             duration: 3000,
           });
@@ -364,6 +373,11 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   getUserData() {
+    this.showLoader$ = of(true);
+    this.loadingSubject = new BehaviorSubject<boolean>(true);
+    // this.users = [];
+    this.dataSource.data = [];// = new MatTableDataSource(this.users);
+
     const userData = {
       page: this.page,
       limit: this.limit,
@@ -373,7 +387,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
     this.userService.getUserData(userData).subscribe(response => {
       this.loadingSubject = new BehaviorSubject<boolean>(false);
-      console.log("response", response);
+      this.showLoader$ = of(false);
 
       if (response.success) {
         if (Array.isArray(response.body.users)) {

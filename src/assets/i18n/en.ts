@@ -114,9 +114,9 @@ export const locale = {
                             EDIT_INFO_TEXT: "Edit Info"
 
                         },
-                        LOADING_MESSAGE: "Please wait ...",
-                        NO_RECORD_FOUND: "No data found",
-                    }
+                    },
+                    LOADING_MESSAGE: "Please wait ...",
+                    NO_RECORD_FOUND: "No data found",
                 },
             },
             ADD_EDIT_USER_FORM: {

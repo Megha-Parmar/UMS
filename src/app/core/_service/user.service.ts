@@ -24,6 +24,7 @@ export class UserService {
     if (this.loggedInUser?.role?.name == 'USER') {
       url = `${GlobalConstants.apiUrls.user.getUserDetail}${this.loggedInUser._id}`
     } else { url = `${GlobalConstants.apiUrls.user.getUserList}?${QueryParamsConstant.page}=${data.page}&${QueryParamsConstant.limit}=${data.limit}` }
+    console.log("url", url)
     return this.http.get<APIResponse<ListResponse>>(url);
   }
 
